@@ -1,0 +1,6 @@
+.config.json
+.whoop_token.json
+.gdrive_token.json
+credentials.json
+__pycache__/
+*.pyc
