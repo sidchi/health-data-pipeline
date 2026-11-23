@@ -134,6 +134,30 @@ the roadmap.
 The handler returns HTTP 500 on any failure so Cloud Scheduler's retry policy kicks in; the
 response body never contains exception details (they go to Cloud Logging).
 
+## Sample data
+
+No WHOOP account? `whoop_exporter.sample` simulates one. It is a small, seeded model rather than
+independent random numbers, so the data behaves like the real thing: a weekly training plan,
+strain feeding a training load, HRV falling after hard days and short nights, resting heart rate
+moving against HRV, naps after poor sleep, and occasional multi-day illness episodes (lower HRV,
+higher RHR, skin temperature and respiratory rate) whose dates are returned as ground truth.
+
+```bash
+python -m whoop_exporter.sample --days 90 --seed 1 --out sample.json   # export document
+python -m whoop_exporter.sample --days 30 --api-dir ./fake-api          # API-shaped files
+python -m whoop_exporter.sample --sample   # regenerate sample_data/whoop_sample_export.json
+```
+
+* `--out` writes the same document the exporter produces (raw records + `summary`), plus a
+  `synthetic` block with the seed and illness dates.
+* `--api-dir` writes `cycles.json`, `sleep.json`, `recovery_by_cycle.json`, … that the fake WHOOP
+  API in `tests/whoop_api.py` can serve (`FakeWhoopApi(data_dir=...)`), so the real client can be
+  exercised against any amount of data.
+* [`sample_data/whoop_sample_export.json`](sample_data/README.md) is a committed 28-day export
+  for demos and the dashboard; a test fails if it drifts from the generator.
+
+The same seed always gives byte-identical output.
+
 ## Development
 
 ```bash
@@ -155,6 +179,10 @@ Two layers of test doubles:
   `400 invalid_grant`). `tests/test_pipeline_fixtures.py` runs a whole export against it and
   compares the daily summary to a golden file; `tests/test_token_lifecycle.py` covers refresh
   across runs and the local browser OAuth callback.
+* **Generated data** (`whoop_exporter.sample`) — `tests/test_sample.py` checks the generator's
+  output against the fixtures' shape, its invariants (stages sum to time in bed, contiguous
+  cycles, zones sum to workout duration), the relationships it is meant to encode, and runs the
+  real client against the fake API serving a generated month.
 
 All fixture data is synthetic. Never add a real export, token or Drive folder id to this
 repository.
