@@ -83,6 +83,8 @@ cp .config.example.json .config.json   # then fill in your values
 ```bash
 python whoop.py                 # DAYS_BACK days, writes JSON, uploads if configured
 python whoop.py --days 21 --out ./exports --no-drive
+python whoop.py --duckdb health.duckdb               # also load the export into DuckDB
+python whoop.py --duckdb health.duckdb --incremental # fetch only since the last stored day
 ```
 
 The first run opens a browser for WHOOP consent (and Google consent if Drive is configured).
@@ -196,6 +198,46 @@ Decisions the schema makes once, for every source:
 
 Adding a source means one `Connector` subclass in `health_pipeline/connectors/` plus fixtures;
 see the module docstrings for each vendor's mapping notes.
+
+## DuckDB storage
+
+`health_pipeline.store` keeps every unified record in a local DuckDB file next to the Drive
+exports, so history accumulates beyond the rolling `DAYS_BACK` window and can be queried with SQL.
+Drive stays the Cloud Function's output; DuckDB is for local runs (it is not deployed).
+
+```bash
+python -m health_pipeline --whoop sample_data/whoop_sample_export.json \
+    --oura tests/fixtures/oura/oura_export.json --duckdb health.duckdb
+# Run it again: every file is reported "skipped (already loaded ...)". --force reloads anyway.
+
+duckdb health.duckdb "SELECT day, readiness_score, strain, sleep_time_asleep_s / 3600 AS sleep_h
+                      FROM daily_metrics WHERE source = 'whoop' ORDER BY day DESC LIMIT 7"
+```
+
+| Table / view | Key | Notes |
+| --- | --- | --- |
+| `sleep_sessions`, `workouts` | `(source, source_id)` | instants as UTC `TIMESTAMP` + `*_offset_s`; local `day` materialised |
+| `daily_recovery`, `daily_activity` | `(source, day)` | one row per vendor per day |
+| `daily_metrics` (view) | `(source, day)` | the flat `--daily` view in SQL: night = longest non-nap sleep |
+| `load_runs` | `run_id` | audit log: file, SHA-256, records inserted / updated / unchanged |
+| `schema_migrations` | `version` | append-only numbered migrations |
+
+How loads stay safe to repeat:
+
+* **Idempotent upserts.** Each row carries the SHA-256 of its canonical JSON. A reload rewrites
+  only rows whose hash changed (WHOOP re-scored a night) and inserts only new keys, so the
+  heavily overlapping daily exports converge to their union.
+* **Incremental.** Files whose bytes were already loaded are skipped without parsing.
+  `whoop.py --incremental` asks the store for its latest WHOOP day and fetches from there minus
+  three days of overlap (an empty store falls back to `DAYS_BACK`; a stale one backfills the
+  whole gap). Note that the Drive file written by such a run then covers only that window.
+* **Atomic.** A load's rows and its `load_runs` entry commit in one transaction; a failed load
+  leaves nothing behind and the file is retried next time.
+* **Schema drift is caught.** DDL is written out per migration rather than generated, and a
+  test fails if a schema dataclass and its table disagree, so changing the model forces a
+  migration instead of silently diverging from existing databases.
+
+DuckDB allows one writer per file, which suits a personal cron job; `*.duckdb` is git-ignored.
 
 ## Development
 
