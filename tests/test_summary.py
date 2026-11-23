@@ -1,3 +1,5 @@
+import pytest
+
 from whoop_exporter.summary import build_daily_summary, format_summary_line
 
 # Synthetic, WHOOP-shaped records. Not real data.
@@ -95,3 +97,44 @@ def test_empty_input_gives_empty_summary():
 def test_format_summary_line_handles_missing_metrics():
     line = format_summary_line("2026-01-11", {"strain": 7.25, "hrv_rmssd_milli": 51.6})
     assert line == "2026-01-11  Recovery: —%  Strain: 7.2  RHR: —  HRV: 52  Sleep: —%"
+
+
+def _sleep(start, in_bed, perf, *, nap=False):
+    return {
+        "start": start,
+        "nap": nap,
+        "score": {
+            "sleep_performance_percentage": perf,
+            "stage_summary": {"total_in_bed_time_milli": in_bed},
+        },
+    }
+
+
+NIGHT = _sleep("2026-01-12T22:30:00.000Z", 28_000_000, 95)
+NAP = _sleep("2026-01-12T13:30:00.000Z", 2_000_000, None, nap=True)
+
+
+@pytest.mark.parametrize("order", [[NIGHT, NAP], [NAP, NIGHT]])
+def test_nightly_metrics_ignore_naps_regardless_of_order(order):
+    day = build_daily_summary([], [], order, [])["2026-01-12"]
+    assert day["sleep_performance_percentage"] == 95
+    assert day["total_sleep_time_milli"] == 28_000_000
+    assert (day["nap_count"], day["nap_time_milli"]) == (1, 2_000_000)
+
+
+def test_split_night_uses_the_longest_sleep():
+    short = _sleep("2026-01-12T21:00:00.000Z", 5_000_000, 40)
+    day = build_daily_summary([], [], [short, NIGHT], [])["2026-01-12"]
+    assert day["sleep_performance_percentage"] == 95
+
+
+def test_nap_only_day_reports_naps_without_nightly_metrics():
+    day = build_daily_summary([], [], [NAP], [])["2026-01-12"]
+    assert day == {"nap_count": 1, "nap_time_milli": 2_000_000}
+
+
+def test_sleep_without_nap_flag_counts_as_a_night():
+    legacy = {k: v for k, v in NIGHT.items() if k != "nap"}
+    day = build_daily_summary([], [], [legacy], [])["2026-01-12"]
+    assert day["nap_count"] == 0
+    assert day["sleep_performance_percentage"] == 95
