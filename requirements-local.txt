@@ -1,0 +1,3 @@
+# Extra dependencies for the local CLI (whoop.py): browser-based Google OAuth.
+-r requirements.txt
+google-auth-oauthlib>=1.0.0

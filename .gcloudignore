@@ -1,0 +1,20 @@
+# Only ship what the Cloud Function needs.
+.git/
+.github/
+.gitignore
+.gcloudignore
+tests/
+*.md
+requirements-*.txt
+pyproject.toml
+whoop.py
+whoop_exporter/cli.py
+.config*.json
+.whoop_token.json
+.gdrive_token.json
+credentials.json
+WhoopExport-*.json
+__pycache__/
+.venv/
+.pytest_cache/
+.ruff_cache/

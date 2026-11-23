@@ -1,3 +1,4 @@
+# Cloud Function runtime dependencies (deployed with main.py).
 functions-framework==3.*
 requests>=2.32.0
 google-api-python-client>=2.0.0
