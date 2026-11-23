@@ -1,6 +1,19 @@
+# Local credentials and tokens — never commit
 .config.json
 .whoop_token.json
 .gdrive_token.json
 credentials.json
+.env
+
+# Exports contain personal health data — never commit
+WhoopExport-*.json
+exports/
+
+# Python
 __pycache__/
 *.pyc
+.venv/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/

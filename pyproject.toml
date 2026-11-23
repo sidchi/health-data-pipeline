@@ -1,0 +1,24 @@
+[project]
+name = "health-data-pipeline"
+version = "0.2.0"
+description = "WHOOP data exporter: local CLI and Google Cloud Function writing daily summaries to Google Drive."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "N", "SIM", "ARG", "S", "RUF"]
+ignore = [
+  "S101",  # assert is fine in tests
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["S105", "S106", "ARG"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra --strict-markers"
