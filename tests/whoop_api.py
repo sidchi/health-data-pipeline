@@ -47,9 +47,9 @@ RECOVERY_PREFIX = "/v2/cycle/"
 RECOVERY_SUFFIX = "/recovery"
 
 
-def load_fixture(name: str) -> Any:
+def load_fixture(name: str, directory: Path = FIXTURE_DIR) -> Any:
     """Load a JSON fixture by file name (a fresh copy each call)."""
-    return json.loads((FIXTURE_DIR / name).read_text(encoding="utf-8"))
+    return json.loads((directory / name).read_text(encoding="utf-8"))
 
 
 def _parse_ts(value: str) -> datetime:
@@ -71,6 +71,9 @@ class FakeWhoopApi:
     access_token: str = "access-0"
     refresh_token: str = "refresh-0"
     expires_in: int = 3600
+    # Where the data files live. Point it at the output of
+    # ``python -m whoop_exporter.sample --api-dir`` to serve generated data.
+    data_dir: Path = FIXTURE_DIR
     requests: list[Request] = field(default_factory=list)
     # Status codes to return instead of data, keyed by (path, page index).
     failures: dict[tuple[str, int], int] = field(default_factory=dict)
@@ -96,10 +99,10 @@ class FakeWhoopApi:
         if path in COLLECTIONS:
             return self._collection(path, request.params)
         if path in SINGLETONS:
-            return FakeResponse(load_fixture(SINGLETONS[path]))
+            return FakeResponse(load_fixture(SINGLETONS[path], self.data_dir))
         if path.startswith(RECOVERY_PREFIX) and path.endswith(RECOVERY_SUFFIX):
             cycle_id = path[len(RECOVERY_PREFIX) : -len(RECOVERY_SUFFIX)]
-            recovery = load_fixture("recovery_by_cycle.json").get(cycle_id)
+            recovery = load_fixture("recovery_by_cycle.json", self.data_dir).get(cycle_id)
             return FakeResponse(recovery) if recovery else FakeResponse(status_code=404)
         return FakeResponse(status_code=404)
 
@@ -153,7 +156,7 @@ class FakeWhoopApi:
         end = _parse_ts(params["end"]) if "end" in params else None
         records = [
             r
-            for r in load_fixture(COLLECTIONS[path])["records"]
+            for r in load_fixture(COLLECTIONS[path], self.data_dir)["records"]
             if (start is None or _parse_ts(r["start"]) >= start)
             and (end is None or _parse_ts(r["start"]) < end)
         ]
