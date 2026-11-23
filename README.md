@@ -142,9 +142,22 @@ ruff check . && ruff format --check .
 pytest --cov=whoop_exporter --cov=main
 ```
 
-Tests use hand-written fakes for HTTP, Secret Manager and Drive, with synthetic WHOOP-shaped
-records; no network access or credentials are needed. CI runs lint and tests on Python 3.11
-and 3.12.
+No network access or credentials are needed. CI runs lint and tests on Python 3.11 and 3.12.
+
+Two layers of test doubles:
+
+* **Per-test fakes** (`tests/fakes.py`) — route tables for HTTP, Secret Manager and Drive, for
+  pinning a single branch.
+* **A fake WHOOP API** (`tests/whoop_api.py`) — serves the synthetic fixtures in
+  `tests/fixtures/whoop/` ([what's in them](tests/fixtures/whoop/README.md)) with the real
+  service's semantics: window filtering, `limit`/`nextToken` pagination, bearer-token checks,
+  per-cycle recovery 404s, and refresh-token **rotation** (replaying a used refresh token gets
+  `400 invalid_grant`). `tests/test_pipeline_fixtures.py` runs a whole export against it and
+  compares the daily summary to a golden file; `tests/test_token_lifecycle.py` covers refresh
+  across runs and the local browser OAuth callback.
+
+All fixture data is synthetic. Never add a real export, token or Drive folder id to this
+repository.
 
 ## Output format
 
@@ -159,6 +172,7 @@ and 3.12.
       "strain": 12.3, "recovery_score": 66, "hrv_rmssd_milli": 48.7,
       "resting_heart_rate": 55, "sleep_performance_percentage": 91,
       "total_sleep_time_milli": 28800000,   // time in bed (legacy name)
+      "nap_count": 1, "nap_time_milli": 2100000,
       "workouts": [{"sport_name": "running", "strain": 9.1, "zone_durations": {}}]
     }
   }

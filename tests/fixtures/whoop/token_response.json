@@ -1,0 +1,7 @@
+{
+  "access_token": "synthetic-access-token",
+  "expires_in": 3600,
+  "refresh_token": "synthetic-refresh-token",
+  "scope": "offline read:recovery read:sleep read:workout read:cycles read:body_measurement read:profile",
+  "token_type": "bearer"
+}

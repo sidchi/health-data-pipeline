@@ -24,6 +24,31 @@ def _day(timestamp: str | None) -> str:
     return (timestamp or "")[:10]
 
 
+def _in_bed_milli(sleep: Record) -> int | None:
+    score = _score(sleep)
+    stages = score.get("stage_summary") or {}
+    # WHOOP nests this under stage_summary; the top-level lookup is a
+    # defensive fallback for older payloads.
+    return stages.get("total_in_bed_time_milli") or score.get("total_in_bed_time_milli")
+
+
+def _apply_sleep_metrics(entry: dict[str, Any], sleep: Record) -> None:
+    score = _score(sleep)
+    stages = score.get("stage_summary") or {}
+    entry["sleep_performance_percentage"] = score.get("sleep_performance_percentage")
+    entry["sleep_efficiency_percentage"] = score.get("sleep_efficiency_percentage")
+    entry["sleep_consistency_percentage"] = score.get("sleep_consistency_percentage")
+    # NOTE: the key name is kept for backward compatibility with existing
+    # exports, but the value is time *in bed*, not time asleep. The unified
+    # schema (roadmap item 4) will expose both explicitly.
+    entry["total_sleep_time_milli"] = _in_bed_milli(sleep)
+    entry["rem_sleep_time_milli"] = stages.get("total_rem_sleep_time_milli")
+    entry["sws_sleep_time_milli"] = stages.get("total_slow_wave_sleep_time_milli")
+    entry["light_sleep_time_milli"] = stages.get("total_light_sleep_time_milli")
+    entry["awake_time_milli"] = stages.get("total_awake_time_milli")
+    entry["respiratory_rate"] = score.get("respiratory_rate")
+
+
 def build_daily_summary(
     cycles: list[Record],
     recovery: list[Record],
@@ -33,6 +58,12 @@ def build_daily_summary(
     """Collapse cycles, recovery, sleep and workouts into one dict per day.
 
     Records without a usable date are skipped rather than grouped under ``""``.
+
+    Sleep: a day can hold several sleep records (naps, split nights). The
+    nightly metrics come from the longest non-nap sleep, independent of the
+    order WHOOP returns them in; naps are reported as ``nap_count`` and
+    ``nap_time_milli`` (time in bed) so they are visible without polluting
+    the night's numbers.
     """
     daily: DailySummary = {}
 
@@ -62,26 +93,18 @@ def build_daily_summary(
         entry["spo2_percentage"] = score.get("spo2_percentage")
         entry["skin_temp_celsius"] = score.get("skin_temp_celsius")
 
+    sleeps_by_day: dict[str, list[Record]] = {}
     for s in sleep:
-        if (entry := bucket(_day(s.get("start")))) is None:
-            continue
-        score = _score(s)
-        stages = score.get("stage_summary") or {}
-        entry["sleep_performance_percentage"] = score.get("sleep_performance_percentage")
-        entry["sleep_efficiency_percentage"] = score.get("sleep_efficiency_percentage")
-        entry["sleep_consistency_percentage"] = score.get("sleep_consistency_percentage")
-        # NOTE: the key name is kept for backward compatibility with existing
-        # exports, but the value is time *in bed*, not time asleep. WHOOP nests
-        # it under stage_summary; the top-level lookup is a defensive fallback.
-        # The unified schema (roadmap item 4) will expose both explicitly.
-        entry["total_sleep_time_milli"] = stages.get("total_in_bed_time_milli") or score.get(
-            "total_in_bed_time_milli"
-        )
-        entry["rem_sleep_time_milli"] = stages.get("total_rem_sleep_time_milli")
-        entry["sws_sleep_time_milli"] = stages.get("total_slow_wave_sleep_time_milli")
-        entry["light_sleep_time_milli"] = stages.get("total_light_sleep_time_milli")
-        entry["awake_time_milli"] = stages.get("total_awake_time_milli")
-        entry["respiratory_rate"] = score.get("respiratory_rate")
+        if day := _day(s.get("start")):
+            sleeps_by_day.setdefault(day, []).append(s)
+    for day, records in sleeps_by_day.items():
+        entry = daily.setdefault(day, {})
+        naps = [s for s in records if s.get("nap")]
+        nights = [s for s in records if not s.get("nap")]
+        entry["nap_count"] = len(naps)
+        entry["nap_time_milli"] = sum(_in_bed_milli(n) or 0 for n in naps)
+        if nights:
+            _apply_sleep_metrics(entry, max(nights, key=lambda s: _in_bed_milli(s) or 0))
 
     for w in workouts:
         if (entry := bucket(_day(w.get("start")))) is None:

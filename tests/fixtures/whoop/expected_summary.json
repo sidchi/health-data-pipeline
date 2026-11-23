@@ -1,0 +1,176 @@
+{
+  "2026-01-10": {
+    "awake_time_milli": 2100000,
+    "light_sleep_time_milli": 12400000,
+    "nap_count": 0,
+    "nap_time_milli": 0,
+    "rem_sleep_time_milli": 6120000,
+    "respiratory_rate": 15.4,
+    "sleep_consistency_percentage": 78,
+    "sleep_efficiency_percentage": 91.9,
+    "sleep_performance_percentage": 87,
+    "sws_sleep_time_milli": 5900000,
+    "total_sleep_time_milli": 26520000
+  },
+  "2026-01-11": {
+    "average_heart_rate": 72,
+    "awake_time_milli": 2600000,
+    "hrv_rmssd_milli": 52.3,
+    "kilojoule": 10450.2,
+    "light_sleep_time_milli": 11500000,
+    "max_heart_rate": 181,
+    "nap_count": 0,
+    "nap_time_milli": 0,
+    "recovery_score": 71,
+    "rem_sleep_time_milli": 5380000,
+    "respiratory_rate": 15.9,
+    "resting_heart_rate": 54,
+    "skin_temp_celsius": 33.6,
+    "sleep_consistency_percentage": 64,
+    "sleep_efficiency_percentage": 89.2,
+    "sleep_performance_percentage": 74,
+    "spo2_percentage": 96.8,
+    "strain": 14.6,
+    "sws_sleep_time_milli": 4700000,
+    "total_sleep_time_milli": 24180000,
+    "workouts": [
+      {
+        "average_heart_rate": 121,
+        "distance_meter": null,
+        "kilojoule": 1150.0,
+        "max_heart_rate": 163,
+        "sport_id": 48,
+        "sport_name": "functional-fitness",
+        "strain": 7.3,
+        "zone_durations": {
+          "zone_five_milli": 0,
+          "zone_four_milli": 120000,
+          "zone_one_milli": 900000,
+          "zone_three_milli": 540000,
+          "zone_two_milli": 780000,
+          "zone_zero_milli": 60000
+        }
+      },
+      {
+        "average_heart_rate": 152,
+        "distance_meter": 7420.0,
+        "kilojoule": 2210.5,
+        "max_heart_rate": 181,
+        "sport_id": 0,
+        "sport_name": "running",
+        "strain": 11.9,
+        "zone_durations": {
+          "zone_five_milli": 120000,
+          "zone_four_milli": 420000,
+          "zone_one_milli": 180000,
+          "zone_three_milli": 1260000,
+          "zone_two_milli": 540000,
+          "zone_zero_milli": 0
+        }
+      }
+    ]
+  },
+  "2026-01-12": {
+    "average_heart_rate": 61,
+    "awake_time_milli": 1900000,
+    "hrv_rmssd_milli": 39.1,
+    "kilojoule": 7310.0,
+    "light_sleep_time_milli": 13600000,
+    "max_heart_rate": 132,
+    "nap_count": 1,
+    "nap_time_milli": 2100000,
+    "recovery_score": 48,
+    "rem_sleep_time_milli": 6400000,
+    "respiratory_rate": 15.2,
+    "resting_heart_rate": 58,
+    "skin_temp_celsius": 33.9,
+    "sleep_consistency_percentage": 81,
+    "sleep_efficiency_percentage": 93.3,
+    "sleep_performance_percentage": 95,
+    "spo2_percentage": 96.1,
+    "strain": 6.1,
+    "sws_sleep_time_milli": 6300000,
+    "total_sleep_time_milli": 28200000
+  },
+  "2026-01-13": {
+    "average_heart_rate": 68,
+    "awake_time_milli": 2300000,
+    "hrv_rmssd_milli": null,
+    "kilojoule": 9280.7,
+    "light_sleep_time_milli": 11900000,
+    "max_heart_rate": 167,
+    "nap_count": 0,
+    "nap_time_milli": 0,
+    "recovery_score": null,
+    "rem_sleep_time_milli": 5200000,
+    "respiratory_rate": 15.6,
+    "resting_heart_rate": null,
+    "skin_temp_celsius": null,
+    "sleep_consistency_percentage": 70,
+    "sleep_efficiency_percentage": 90.7,
+    "sleep_performance_percentage": 80,
+    "spo2_percentage": null,
+    "strain": 11.2,
+    "sws_sleep_time_milli": 5200000,
+    "total_sleep_time_milli": 24600000,
+    "workouts": [
+      {
+        "average_heart_rate": 138,
+        "distance_meter": 24100.0,
+        "kilojoule": 2650.8,
+        "max_heart_rate": 167,
+        "sport_id": 1,
+        "sport_name": "cycling",
+        "strain": 10.4,
+        "zone_durations": {
+          "zone_five_milli": 0,
+          "zone_four_milli": 480000,
+          "zone_one_milli": 600000,
+          "zone_three_milli": 1320000,
+          "zone_two_milli": 1500000,
+          "zone_zero_milli": 0
+        }
+      }
+    ]
+  },
+  "2026-01-14": {
+    "average_heart_rate": 64,
+    "awake_time_milli": 2000000,
+    "hrv_rmssd_milli": 46.8,
+    "kilojoule": 8005.3,
+    "light_sleep_time_milli": 12800000,
+    "max_heart_rate": 149,
+    "nap_count": 0,
+    "nap_time_milli": 0,
+    "recovery_score": 63,
+    "rem_sleep_time_milli": 6100000,
+    "respiratory_rate": 15.3,
+    "resting_heart_rate": 56,
+    "skin_temp_celsius": 33.5,
+    "sleep_consistency_percentage": 76,
+    "sleep_efficiency_percentage": 92.5,
+    "sleep_performance_percentage": 89,
+    "spo2_percentage": 97.0,
+    "strain": 8.4,
+    "sws_sleep_time_milli": 5800000,
+    "total_sleep_time_milli": 26700000
+  },
+  "2026-01-15": {
+    "average_heart_rate": null,
+    "kilojoule": null,
+    "max_heart_rate": null,
+    "strain": null,
+    "workouts": [
+      {
+        "average_heart_rate": null,
+        "distance_meter": null,
+        "kilojoule": null,
+        "max_heart_rate": null,
+        "sport_id": 63,
+        "sport_name": "walking",
+        "strain": null,
+        "zone_durations": {}
+      }
+    ]
+  }
+}
