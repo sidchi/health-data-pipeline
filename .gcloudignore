@@ -17,6 +17,8 @@ sample_data/
 .gdrive_token.json
 credentials.json
 WhoopExport-*.json
+*.duckdb
+*.duckdb.wal
 __pycache__/
 .venv/
 .pytest_cache/

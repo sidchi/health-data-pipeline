@@ -3,3 +3,5 @@
 google-auth-oauthlib>=1.0.0
 # health_pipeline: safe streaming parse of Apple Health export.xml.
 defusedxml>=0.7.1
+# health_pipeline.store: local analytical store (not needed by the Cloud Function).
+duckdb>=1.1
