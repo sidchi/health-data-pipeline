@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- SYNTHETIC fixture shaped like an Apple Health export.xml. Not real data. -->
+<!DOCTYPE HealthData [
+<!ELEMENT HealthData (ExportDate,Me,(Record|Workout)*)>
+<!ATTLIST HealthData locale CDATA #REQUIRED>
+<!ELEMENT ExportDate EMPTY>
+<!ATTLIST ExportDate value CDATA #REQUIRED>
+<!ELEMENT Me EMPTY>
+<!ELEMENT Record ((MetadataEntry|HeartRateVariabilityMetadataList)*)>
+<!ELEMENT Workout ((MetadataEntry|WorkoutEvent|WorkoutStatistics)*)>
+]>
+<HealthData locale="en_US">
+ <ExportDate value="2026-01-08 09:00:00 +0530"/>
+ <Me HKCharacteristicTypeIdentifierDateOfBirth="" HKCharacteristicTypeIdentifierBiologicalSex="HKBiologicalSexNotSet"/>
+
+ <!-- Night 1 (wake 2026-01-06). iPhone logged only "in bed"; the Watch logged stages. -->
+ <Record type="HKCategoryTypeIdentifierSleepAnalysis" sourceName="Sample iPhone" startDate="2026-01-05 22:20:00 +0530" endDate="2026-01-06 06:40:00 +0530" value="HKCategoryValueSleepAnalysisInBed"/>
+ <Record type="HKCategoryTypeIdentifierSleepAnalysis" sourceName="Sample Watch" startDate="2026-01-05 22:30:00 +0530" endDate="2026-01-05 22:45:00 +0530" value="HKCategoryValueSleepAnalysisAwake"/>
+ <Record type="HKCategoryTypeIdentifierSleepAnalysis" sourceName="Sample Watch" startDate="2026-01-05 22:45:00 +0530" endDate="2026-01-06 00:45:00 +0530" value="HKCategoryValueSleepAnalysisAsleepCore"/>
+ <Record type="HKCategoryTypeIdentifierSleepAnalysis" sourceName="Sample Watch" startDate="2026-01-06 00:45:00 +0530" endDate="2026-01-06 01:45:00 +0530" value="HKCategoryValueSleepAnalysisAsleepDeep"/>
+ <Record type="HKCategoryTypeIdentifierSleepAnalysis" sourceName="Sample Watch" startDate="2026-01-06 01:45:00 +0530" endDate="2026-01-06 02:45:00 +0530" value="HKCategoryValueSleepAnalysisAsleepREM"/>
+ <Record type="HKCategoryTypeIdentifierSleepAnalysis" sourceName="Sample Watch" startDate="2026-01-06 02:45:00 +0530" endDate="2026-01-06 05:15:00 +0530" value="HKCategoryValueSleepAnalysisAsleepCore"/>
+ <Record type="HKCategoryTypeIdentifierSleepAnalysis" sourceName="Sample Watch" startDate="2026-01-06 05:15:00 +0530" endDate="2026-01-06 06:15:00 +0530" value="HKCategoryValueSleepAnalysisAsleepREM"/>
+ <Record type="HKCategoryTypeIdentifierSleepAnalysis" sourceName="Sample Watch" startDate="2026-01-06 06:15:00 +0530" endDate="2026-01-06 06:30:00 +0530" value="HKCategoryValueSleepAnalysisAwake"/>
+ <Record type="HKQuantityTypeIdentifierRespiratoryRate" sourceName="Sample Watch" unit="count/min" startDate="2026-01-06 02:00:00 +0530" endDate="2026-01-06 02:00:00 +0530" value="14"/>
+ <Record type="HKQuantityTypeIdentifierRespiratoryRate" sourceName="Sample Watch" unit="count/min" startDate="2026-01-06 04:00:00 +0530" endDate="2026-01-06 04:00:00 +0530" value="15"/>
+
+ <!-- 2026-01-06 daytime: both devices counted the same walk. -->
+ <Record type="HKQuantityTypeIdentifierStepCount" sourceName="Sample iPhone" unit="count" startDate="2026-01-06 08:00:00 +0530" endDate="2026-01-06 09:00:00 +0530" value="3000"/>
+ <Record type="HKQuantityTypeIdentifierStepCount" sourceName="Sample iPhone" unit="count" startDate="2026-01-06 12:00:00 +0530" endDate="2026-01-06 13:00:00 +0530" value="2500"/>
+ <Record type="HKQuantityTypeIdentifierStepCount" sourceName="Sample iPhone" unit="count" startDate="2026-01-06 18:00:00 +0530" endDate="2026-01-06 19:00:00 +0530" value="2500"/>
+ <Record type="HKQuantityTypeIdentifierStepCount" sourceName="Sample Watch" unit="count" startDate="2026-01-06 08:00:00 +0530" endDate="2026-01-06 13:00:00 +0530" value="6000"/>
+ <Record type="HKQuantityTypeIdentifierStepCount" sourceName="Sample Watch" unit="count" startDate="2026-01-06 13:00:00 +0530" endDate="2026-01-06 20:00:00 +0530" value="3500"/>
+ <Record type="HKQuantityTypeIdentifierActiveEnergyBurned" sourceName="Sample Watch" unit="kcal" startDate="2026-01-06 07:00:00 +0530" endDate="2026-01-06 08:00:00 +0530" value="300"/>
+ <Record type="HKQuantityTypeIdentifierActiveEnergyBurned" sourceName="Sample Watch" unit="kcal" startDate="2026-01-06 17:00:00 +0530" endDate="2026-01-06 18:00:00 +0530" value="200"/>
+ <Record type="HKQuantityTypeIdentifierRestingHeartRate" sourceName="Sample Watch" unit="count/min" startDate="2026-01-06 00:00:00 +0530" endDate="2026-01-06 23:59:00 +0530" value="52"/>
+ <Record type="HKQuantityTypeIdentifierHeartRateVariabilitySDNN" sourceName="Sample Watch" unit="ms" startDate="2026-01-06 03:10:00 +0530" endDate="2026-01-06 03:11:00 +0530" value="40">
+  <HeartRateVariabilityMetadataList/>
+ </Record>
+ <Record type="HKQuantityTypeIdentifierHeartRateVariabilitySDNN" sourceName="Sample Watch" unit="ms" startDate="2026-01-06 15:10:00 +0530" endDate="2026-01-06 15:11:00 +0530" value="50"/>
+ <Record type="HKQuantityTypeIdentifierOxygenSaturation" sourceName="Sample Watch" unit="%" startDate="2026-01-06 03:00:00 +0530" endDate="2026-01-06 03:00:00 +0530" value="0.97"/>
+ <Record type="HKQuantityTypeIdentifierOxygenSaturation" sourceName="Sample Watch" unit="%" startDate="2026-01-06 04:00:00 +0530" endDate="2026-01-06 04:00:00 +0530" value="0.95"/>
+ <Record type="HKQuantityTypeIdentifierBodyMass" sourceName="Sample iPhone" unit="kg" startDate="2026-01-06 07:00:00 +0530" endDate="2026-01-06 07:00:00 +0530" value="74.5"/>
+ <!-- Deliberately malformed: must be skipped, not abort the load. -->
+ <Record type="HKQuantityTypeIdentifierRestingHeartRate" sourceName="Sample Watch" unit="count/min" startDate="not-a-date" endDate="not-a-date" value="51"/>
+
+ <Workout workoutActivityType="HKWorkoutActivityTypeRunning" duration="45" durationUnit="min" totalDistance="8.1" totalDistanceUnit="km" totalEnergyBurned="520" totalEnergyBurnedUnit="kcal" sourceName="Sample Watch" startDate="2026-01-06 07:00:00 +0530" endDate="2026-01-06 07:45:00 +0530">
+  <MetadataEntry key="HKIndoorWorkout" value="0"/>
+ </Workout>
+
+ <!-- Night 2 (wake 2026-01-07): a 30-minute gap in the samples is still one session. -->
+ <Record type="HKCategoryTypeIdentifierSleepAnalysis" sourceName="Sample Watch" startDate="2026-01-06 23:00:00 +0530" endDate="2026-01-07 02:00:00 +0530" value="HKCategoryValueSleepAnalysisAsleepCore"/>
+ <Record type="HKCategoryTypeIdentifierSleepAnalysis" sourceName="Sample Watch" startDate="2026-01-07 02:30:00 +0530" endDate="2026-01-07 04:00:00 +0530" value="HKCategoryValueSleepAnalysisAsleepDeep"/>
+ <Record type="HKCategoryTypeIdentifierSleepAnalysis" sourceName="Sample Watch" startDate="2026-01-07 04:00:00 +0530" endDate="2026-01-07 06:00:00 +0530" value="HKCategoryValueSleepAnalysisAsleepREM"/>
+ <!-- Afternoon nap, unstaged. -->
+ <Record type="HKCategoryTypeIdentifierSleepAnalysis" sourceName="Sample Watch" startDate="2026-01-07 14:00:00 +0530" endDate="2026-01-07 14:40:00 +0530" value="HKCategoryValueSleepAnalysisAsleepUnspecified"/>
+
+ <Record type="HKQuantityTypeIdentifierStepCount" sourceName="Sample Watch" unit="count" startDate="2026-01-07 09:00:00 +0530" endDate="2026-01-07 18:00:00 +0530" value="4000"/>
+ <Record type="HKQuantityTypeIdentifierActiveEnergyBurned" sourceName="Sample Watch" unit="kJ" startDate="2026-01-07 18:00:00 +0530" endDate="2026-01-07 19:00:00 +0530" value="1000"/>
+ <Record type="HKQuantityTypeIdentifierRestingHeartRate" sourceName="Sample Watch" unit="count/min" startDate="2026-01-07 00:00:00 +0530" endDate="2026-01-07 23:59:00 +0530" value="54"/>
+
+ <!-- iOS 16+ style: totals live in WorkoutStatistics children. -->
+ <Workout workoutActivityType="HKWorkoutActivityTypeTraditionalStrengthTraining" duration="50" durationUnit="min" sourceName="Sample Watch" startDate="2026-01-07 18:00:00 +0530" endDate="2026-01-07 18:50:00 +0530">
+  <WorkoutStatistics type="HKQuantityTypeIdentifierActiveEnergyBurned" startDate="2026-01-07 18:00:00 +0530" endDate="2026-01-07 18:50:00 +0530" sum="250" unit="kcal"/>
+  <WorkoutStatistics type="HKQuantityTypeIdentifierHeartRate" startDate="2026-01-07 18:00:00 +0530" endDate="2026-01-07 18:50:00 +0530" average="118" minimum="80" maximum="151" unit="count/min"/>
+ </Workout>
+ <Workout workoutActivityType="HKWorkoutActivityTypeCurling" duration="30" durationUnit="min" sourceName="Sample Watch" startDate="2026-01-07 20:00:00 +0530" endDate="2026-01-07 20:30:00 +0530"/>
+</HealthData>
