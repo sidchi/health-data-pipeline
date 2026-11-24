@@ -255,6 +255,55 @@ How loads stay safe to repeat:
 
 DuckDB allows one writer per file, which suits a personal cron job; `*.duckdb` is git-ignored.
 
+## Dashboard
+
+[`dashboard/`](dashboard/) is a static React + [Recharts](https://recharts.org/) app that charts
+recovery, HRV, resting heart rate, sleep stages and strain from the unified `--daily` view. It
+ships with the synthetic sample, so it works with no account and no backend.
+
+```bash
+cd dashboard
+npm ci
+npm run dev        # http://localhost:5173, bundled synthetic sample
+npm run build      # static site in dashboard/dist (relative paths: host it anywhere)
+```
+
+To look at your own data, produce the daily view and either open it with **Open daily.json…**
+(parsed in the browser, never uploaded) or point the build at it:
+
+```bash
+mkdir -p dashboard/public/local   # git-ignored
+python -m health_pipeline --whoop WhoopExport-2026-01-15.json --daily \
+    -o dashboard/public/local/daily.json
+cd dashboard && VITE_DAILY_URL=local/daily.json npm run dev
+```
+
+The bundled `dashboard/public/data/daily.json` is generated from `sample_data/` and a test fails
+if it drifts:
+
+```bash
+python -m health_pipeline --whoop sample_data/whoop_sample_export.json \
+    --daily --output dashboard/public/data/daily.json
+```
+
+Design choices worth knowing:
+
+* **One source at a time.** WHOOP recovery and Oura readiness are each 0–100 but not on the same
+  scale, so the dashboard picks a source rather than averaging them. WHOOP's green/yellow/red
+  recovery zones are only applied to WHOOP data. HRV is labeled RMSSD or SDNN (Apple Watch), never
+  mixed.
+* **Gaps stay gaps.** Days without data are null points on a continuous calendar axis, so an
+  unscorable night or a week without the strap shows up as a hole instead of being squeezed out.
+  Averages skip missing days rather than counting them as zero.
+* **Baseline before filtering.** The 7-day HRV baseline is computed over the whole series and
+  then sliced, so the first day of a "7 days" view still has a full week behind it.
+* **One y-axis per chart.** Measures with different units (HRV in ms, RHR in bpm) get separate
+  charts instead of a dual-axis plot. Every chart has a legend that does not rely on color alone
+  and a collapsible data table; colors are CSS variables with a dark-mode set.
+
+The data layer (`src/data.ts`) is plain TypeScript with no React in it, and is where most of the
+tests live. `npm run lint`, `npm run typecheck`, `npm test` and `npm run build` run in CI.
+
 ## Development
 
 ```bash
@@ -263,7 +312,8 @@ ruff check . && ruff format --check .
 pytest --cov=whoop_exporter --cov=health_pipeline --cov=main
 ```
 
-No network access or credentials are needed. CI runs lint and tests on Python 3.11 and 3.12.
+No network access or credentials are needed. CI runs lint and tests on Python 3.11 and 3.12,
+`terraform validate`, and the dashboard's lint, type-check, tests and build (Node 22).
 
 Two layers of test doubles:
 

@@ -1,0 +1,7 @@
+node_modules/
+dist/
+coverage/
+*.local
+
+# Your own data for local viewing (VITE_DAILY_URL=local/...) — never commit
+public/local/

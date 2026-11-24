@@ -51,7 +51,9 @@ FORBIDDEN_NAMES = (
 
 # Directories that are never part of the deployable source, so the walk skips
 # them without reading their contents.
-ALWAYS_SKIPPED_DIRS = frozenset({".git", ".venv", "__pycache__", "dist", ".terraform"})
+ALWAYS_SKIPPED_DIRS = frozenset(
+    {".git", ".venv", "__pycache__", "dist", ".terraform", "node_modules"}
+)
 
 # 1980-01-01 is the earliest timestamp the zip format can represent.
 _FIXED_DATE_TIME = (1980, 1, 1, 0, 0, 0)
