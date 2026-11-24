@@ -1,0 +1,155 @@
+name: Deploy
+
+# Plans on pull requests that touch the function or its infrastructure, and
+# applies the reviewed plan on main behind the protected `production`
+# environment. Authentication is keyless (Workload Identity Federation).
+#
+# Inert until configured: set these repository variables (Settings > Secrets and
+# variables > Actions > Variables) from the bootstrap `terraform output`:
+#   GCP_PROJECT_ID, GCP_REGION (optional), TF_STATE_BUCKET, GCP_WIF_PROVIDER,
+#   GCP_DEPLOY_SA, GDRIVE_FOLDER_ID
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - main.py
+      - requirements.txt
+      - whoop_exporter/**
+      - .gcloudignore
+      - tools/package_function.py
+      - infra/terraform/**
+      - .github/workflows/deploy.yml
+  pull_request:
+    paths:
+      - main.py
+      - requirements.txt
+      - whoop_exporter/**
+      - .gcloudignore
+      - tools/package_function.py
+      - infra/terraform/**
+      - .github/workflows/deploy.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write # exchange the GitHub OIDC token for short-lived GCP credentials
+
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: false # never interrupt a running apply
+
+env:
+  TF_IN_AUTOMATION: "true"
+  TF_INPUT: "false"
+  TF_VAR_project_id: ${{ vars.GCP_PROJECT_ID }}
+  TF_VAR_region: ${{ vars.GCP_REGION || 'us-central1' }}
+  TF_VAR_gdrive_folder_id: ${{ vars.GDRIVE_FOLDER_ID }}
+  TF_VAR_github_repository: ${{ github.repository }}
+  TF_VAR_source_archive_path: ${{ github.workspace }}/dist/function-source.zip
+
+jobs:
+  plan:
+    # Skip on forks (no OIDC token) and until the repository is configured.
+    if: >-
+      vars.GCP_PROJECT_ID != '' &&
+      (github.event_name != 'pull_request' ||
+       github.event.pull_request.head.repo.full_name == github.repository)
+    runs-on: ubuntu-latest
+    outputs:
+      changes: ${{ steps.plan.outputs.exitcode == '2' }}
+    defaults:
+      run:
+        working-directory: infra/terraform
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Package function source
+        working-directory: .
+        run: python -m tools.package_function --out dist --list
+
+      - uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ vars.GCP_WIF_PROVIDER }}
+          service_account: ${{ vars.GCP_DEPLOY_SA }}
+
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.9.8"
+          terraform_wrapper: false
+
+      - name: terraform init
+        run: >-
+          terraform init
+          -backend-config="bucket=${{ vars.TF_STATE_BUCKET }}"
+          -backend-config="prefix=health-data-pipeline"
+
+      - name: terraform plan
+        id: plan
+        run: |
+          set +e
+          terraform plan -lock-timeout=5m -detailed-exitcode -out=tfplan
+          code=$?
+          echo "exitcode=$code" >> "$GITHUB_OUTPUT"
+          [ "$code" -eq 1 ] && exit 1
+          {
+            echo '### Terraform plan'
+            echo '```'
+            terraform show -no-color tfplan
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+          exit 0
+
+      # Apply exactly what was planned and reviewed: the plan, the lock file it
+      # was made with, and the archive whose hash it references.
+      - uses: actions/upload-artifact@v4
+        with:
+          name: tfplan
+          retention-days: 5
+          include-hidden-files: true # .terraform.lock.hcl
+          path: |
+            infra/terraform/tfplan
+            infra/terraform/.terraform.lock.hcl
+            dist/function-source.zip
+
+  apply:
+    needs: plan
+    if: >-
+      needs.plan.outputs.changes == 'true' &&
+      github.ref == 'refs/heads/main' &&
+      github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    environment: production # add required reviewers to gate applies
+    defaults:
+      run:
+        working-directory: infra/terraform
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: tfplan
+          path: ${{ github.workspace }}
+
+      - uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ vars.GCP_WIF_PROVIDER }}
+          service_account: ${{ vars.GCP_DEPLOY_SA }}
+
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.9.8"
+          terraform_wrapper: false
+
+      - name: terraform init
+        run: >-
+          terraform init
+          -backend-config="bucket=${{ vars.TF_STATE_BUCKET }}"
+          -backend-config="prefix=health-data-pipeline"
+
+      - name: terraform apply
+        run: terraform apply -lock-timeout=5m -auto-approve tfplan

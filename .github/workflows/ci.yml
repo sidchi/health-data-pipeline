@@ -39,3 +39,18 @@ jobs:
           cache-dependency-path: requirements*.txt
       - run: pip install -r requirements-dev.txt
       - run: pytest --cov=whoop_exporter --cov=health_pipeline --cov=main --cov-report=term-missing
+
+  terraform:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: infra/terraform
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.9.8"
+      - run: terraform fmt -check -recursive -diff
+      # No backend and no credentials: validates syntax, types and provider schemas only.
+      - run: terraform init -backend=false -input=false
+      - run: terraform validate
