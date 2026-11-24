@@ -158,12 +158,51 @@ python -m whoop_exporter.sample --sample   # regenerate sample_data/whoop_sample
 
 The same seed always gives byte-identical output.
 
+## Multi-source schema
+
+`health_pipeline` normalises exports from several wearables into one model, so storage,
+dashboards and insights (roadmap items 5, 7, 8) are written once instead of once per vendor.
+
+```bash
+python -m health_pipeline \
+    --whoop sample_data/whoop_sample_export.json \
+    --apple-health tests/fixtures/apple_health/export.xml \
+    --oura tests/fixtures/oura/oura_export.json \
+    --output unified.json            # add --daily for {day: {source: metrics}}
+```
+
+| Record | One per | WHOOP | Apple Health | Oura |
+| --- | --- | --- | --- | --- |
+| `SleepSession` | sleep or nap | `sleep` | chained `SleepAnalysis` samples | `sleep` periods |
+| `DailyRecovery` | day | `recovery` | resting HR, HRV, SpO2 samples | `sleep` + `daily_readiness` + `daily_spo2` |
+| `DailyActivity` | day | `cycles` | step and active-energy samples | `daily_activity` |
+| `Workout` | session | `workouts` | `<Workout>` | `workout` |
+
+Decisions the schema makes once, for every source:
+
+* **Units and time.** Seconds, kJ, bpm, ms, °C, metres, percent 0–100. Timestamps are
+  timezone-aware and keep the wearer's local offset.
+* **Day attribution.** Sleep and recovery belong to the local date you *woke up*; activity to the
+  local date it happened. (The legacy WHOOP `summary` keeps keying by UTC start date.)
+* **No blending.** WHOOP/Oura HRV is RMSSD, Apple Watch HRV is SDNN: different fields
+  (`hrv_rmssd_ms`, `hrv_sdnn_ms`). Readiness scores stay per vendor; the daily view puts sources
+  side by side rather than averaging them.
+* **Apple Health has no "nights" or "days".** The connector streams `export.xml` (constant
+  memory, `defusedxml`), chains sleep samples into sessions, keeps the most detailed source when
+  iPhone and Watch overlap, and takes the larger device total for steps/energy instead of
+  double-counting.
+* **One bad record never fails a load.** Malformed records are logged and skipped; an unreadable
+  or wrong-type file raises `ConnectorError`.
+
+Adding a source means one `Connector` subclass in `health_pipeline/connectors/` plus fixtures;
+see the module docstrings for each vendor's mapping notes.
+
 ## Development
 
 ```bash
 pip install -r requirements-dev.txt
 ruff check . && ruff format --check .
-pytest --cov=whoop_exporter --cov=main
+pytest --cov=whoop_exporter --cov=health_pipeline --cov=main
 ```
 
 No network access or credentials are needed. CI runs lint and tests on Python 3.11 and 3.12.
@@ -179,6 +218,10 @@ Two layers of test doubles:
   `400 invalid_grant`). `tests/test_pipeline_fixtures.py` runs a whole export against it and
   compares the daily summary to a golden file; `tests/test_token_lifecycle.py` covers refresh
   across runs and the local browser OAuth callback.
+* **Connector fixtures** (`tests/fixtures/apple_health/`, `tests/fixtures/oura/`) — small,
+  hand-written synthetic exports with the awkward cases on purpose (overlapping devices, a
+  deleted Oura period, a nap, malformed records, both Apple workout formats);
+  `tests/test_connectors.py` pins the exact numbers each connector derives from them.
 * **Generated data** (`whoop_exporter.sample`) — `tests/test_sample.py` checks the generator's
   output against the fixtures' shape, its invariants (stages sum to time in bed, contiguous
   cycles, zones sum to workout duration), the relationships it is meant to encode, and runs the

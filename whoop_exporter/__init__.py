@@ -9,6 +9,9 @@ Both entry points — the local CLI (``whoop.py``) and the Google Cloud Function
 * :mod:`whoop_exporter.summary` — per-day aggregation of cycles, recovery, sleep, workouts
 * :mod:`whoop_exporter.drive`   — idempotent JSON upload to a Google Drive folder
 * :mod:`whoop_exporter.sample`  — seeded generator of synthetic, WHOOP-shaped data
+
+The multi-source unified schema and connectors live in the sibling package
+:mod:`health_pipeline`.
 """
 
 __version__ = "0.2.0"

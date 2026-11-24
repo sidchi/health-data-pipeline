@@ -10,6 +10,7 @@ pyproject.toml
 whoop.py
 whoop_exporter/cli.py
 whoop_exporter/sample.py
+health_pipeline/
 sample_data/
 .config*.json
 .whoop_token.json

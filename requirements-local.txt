@@ -1,3 +1,5 @@
 # Extra dependencies for the local CLI (whoop.py): browser-based Google OAuth.
 -r requirements.txt
 google-auth-oauthlib>=1.0.0
+# health_pipeline: safe streaming parse of Apple Health export.xml.
+defusedxml>=0.7.1

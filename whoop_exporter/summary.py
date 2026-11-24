@@ -40,7 +40,7 @@ def _apply_sleep_metrics(entry: dict[str, Any], sleep: Record) -> None:
     entry["sleep_consistency_percentage"] = score.get("sleep_consistency_percentage")
     # NOTE: the key name is kept for backward compatibility with existing
     # exports, but the value is time *in bed*, not time asleep. The unified
-    # schema (roadmap item 4) will expose both explicitly.
+    # schema (health_pipeline.schema.SleepSession) exposes both explicitly.
     entry["total_sleep_time_milli"] = _in_bed_milli(sleep)
     entry["rem_sleep_time_milli"] = stages.get("total_rem_sleep_time_milli")
     entry["sws_sleep_time_milli"] = stages.get("total_slow_wave_sleep_time_milli")
