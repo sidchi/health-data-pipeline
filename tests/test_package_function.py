@@ -75,7 +75,13 @@ def test_ignored_directory_is_pruned_even_with_negation(tmp_path: Path) -> None:
 def test_caches_and_virtualenvs_are_always_skipped(tmp_path: Path) -> None:
     _tree(
         tmp_path,
-        {**MINIMAL, "__pycache__/main.cpython-312.pyc": "", ".venv/lib/x.py": "", "dist/a.zip": ""},
+        {
+            **MINIMAL,
+            "__pycache__/main.cpython-312.pyc": "",
+            ".venv/lib/x.py": "",
+            "dist/a.zip": "",
+            "web/node_modules/pkg/index.js": "",
+        },
     )
     assert [f.as_posix() for f in pf.collect_files(tmp_path, [])] == ["main.py", "requirements.txt"]
 
@@ -154,7 +160,15 @@ def test_repository_archive_ships_only_the_function(repo_build: pf.BuildResult) 
     assert {"main.py", "requirements.txt", "whoop_exporter/client.py"} <= files
     for excluded in ("whoop.py", "whoop_exporter/cli.py", "whoop_exporter/sample.py"):
         assert excluded not in files
-    prefixes = ("tests/", "health_pipeline/", "sample_data/", "infra/", "tools/", ".github/")
+    prefixes = (
+        "tests/",
+        "health_pipeline/",
+        "sample_data/",
+        "infra/",
+        "tools/",
+        ".github/",
+        "dashboard/",
+    )
     assert not [f for f in files if f.startswith(prefixes)]
     assert not [f for f in files if f.endswith((".md", ".json"))]
 
