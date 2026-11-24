@@ -1,0 +1,783 @@
+{
+  "2026-01-05": {
+    "whoop": {
+      "average_hr_bpm": 69,
+      "hrv_rmssd_ms": 55.6,
+      "max_hr_bpm": 167,
+      "nap_count": 0,
+      "nap_time_asleep_s": 0,
+      "readiness_score": 75,
+      "resting_hr_bpm": 53,
+      "skin_temp_c": 33.8,
+      "sleep_awake_s": 1949,
+      "sleep_deep_s": 5954,
+      "sleep_efficiency_pct": 93.2,
+      "sleep_light_s": 15039,
+      "sleep_rem_s": 5799,
+      "sleep_respiratory_rate_bpm": 15.0,
+      "sleep_time_asleep_s": 26792,
+      "sleep_time_in_bed_s": 28740,
+      "spo2_pct": 96.0,
+      "strain": 12.8,
+      "total_energy_kj": 8895.4,
+      "workouts": [
+        {
+          "duration_s": 2460,
+          "energy_kj": 1963.1,
+          "sport": "running"
+        }
+      ]
+    }
+  },
+  "2026-01-06": {
+    "whoop": {
+      "average_hr_bpm": 69,
+      "hrv_rmssd_ms": 63.6,
+      "max_hr_bpm": 167,
+      "nap_count": 0,
+      "nap_time_asleep_s": 0,
+      "readiness_score": 95,
+      "resting_hr_bpm": 52,
+      "skin_temp_c": 33.7,
+      "sleep_awake_s": 2182,
+      "sleep_deep_s": 6254,
+      "sleep_efficiency_pct": 92.9,
+      "sleep_light_s": 15721,
+      "sleep_rem_s": 6744,
+      "sleep_respiratory_rate_bpm": 15.4,
+      "sleep_time_asleep_s": 28719,
+      "sleep_time_in_bed_s": 30900,
+      "spo2_pct": 97.5,
+      "strain": 13.0,
+      "total_energy_kj": 10181.0,
+      "workouts": [
+        {
+          "duration_s": 3120,
+          "energy_kj": 2430.5,
+          "sport": "hiit"
+        }
+      ]
+    }
+  },
+  "2026-01-07": {
+    "whoop": {
+      "average_hr_bpm": 63,
+      "hrv_rmssd_ms": 51.4,
+      "max_hr_bpm": 119,
+      "nap_count": 0,
+      "nap_time_asleep_s": 0,
+      "readiness_score": 66,
+      "resting_hr_bpm": 54,
+      "skin_temp_c": 33.5,
+      "sleep_awake_s": 2467,
+      "sleep_deep_s": 5918,
+      "sleep_efficiency_pct": 91.4,
+      "sleep_light_s": 14054,
+      "sleep_rem_s": 6300,
+      "sleep_respiratory_rate_bpm": 15.0,
+      "sleep_time_asleep_s": 26272,
+      "sleep_time_in_bed_s": 28740,
+      "spo2_pct": 96.9,
+      "strain": 6.5,
+      "total_energy_kj": 7400.7
+    }
+  },
+  "2026-01-08": {
+    "whoop": {
+      "average_hr_bpm": 73,
+      "hrv_rmssd_ms": 55.1,
+      "max_hr_bpm": 189,
+      "nap_count": 1,
+      "nap_time_asleep_s": 1511,
+      "readiness_score": 61,
+      "resting_hr_bpm": 55,
+      "skin_temp_c": 33.9,
+      "sleep_awake_s": 1995,
+      "sleep_deep_s": 4496,
+      "sleep_efficiency_pct": 91.5,
+      "sleep_light_s": 12407,
+      "sleep_rem_s": 4681,
+      "sleep_respiratory_rate_bpm": 15.6,
+      "sleep_time_asleep_s": 21584,
+      "sleep_time_in_bed_s": 23580,
+      "spo2_pct": 96.9,
+      "strain": 16.5,
+      "total_energy_kj": 11159.5,
+      "workouts": [
+        {
+          "duration_s": 3120,
+          "energy_kj": 2964.0,
+          "sport": "running"
+        }
+      ]
+    }
+  },
+  "2026-01-09": {
+    "whoop": {
+      "average_hr_bpm": 67,
+      "hrv_rmssd_ms": 55.4,
+      "max_hr_bpm": 140,
+      "nap_count": 0,
+      "nap_time_asleep_s": 0,
+      "readiness_score": 74,
+      "resting_hr_bpm": 54,
+      "skin_temp_c": 33.6,
+      "sleep_awake_s": 3899,
+      "sleep_deep_s": 4972,
+      "sleep_efficiency_pct": 88.0,
+      "sleep_light_s": 15716,
+      "sleep_rem_s": 7993,
+      "sleep_respiratory_rate_bpm": 14.9,
+      "sleep_time_asleep_s": 28681,
+      "sleep_time_in_bed_s": 32580,
+      "spo2_pct": 97.4,
+      "strain": 9.1,
+      "total_energy_kj": 8681.1,
+      "workouts": [
+        {
+          "duration_s": 2460,
+          "energy_kj": 1448.9,
+          "sport": "yoga"
+        }
+      ]
+    }
+  },
+  "2026-01-10": {
+    "whoop": {
+      "average_hr_bpm": 70,
+      "hrv_rmssd_ms": 60.2,
+      "max_hr_bpm": 168,
+      "nap_count": 0,
+      "nap_time_asleep_s": 0,
+      "readiness_score": 73,
+      "resting_hr_bpm": 53,
+      "skin_temp_c": 33.7,
+      "sleep_awake_s": 2782,
+      "sleep_deep_s": 5084,
+      "sleep_efficiency_pct": 90.6,
+      "sleep_light_s": 14393,
+      "sleep_rem_s": 7442,
+      "sleep_respiratory_rate_bpm": 14.8,
+      "sleep_time_asleep_s": 26919,
+      "sleep_time_in_bed_s": 29700,
+      "spo2_pct": 98.4,
+      "strain": 17.4,
+      "total_energy_kj": 13615.5,
+      "workouts": [
+        {
+          "duration_s": 7260,
+          "energy_kj": 5862.4,
+          "sport": "cycling"
+        }
+      ]
+    }
+  },
+  "2026-01-11": {
+    "whoop": {
+      "average_hr_bpm": 67,
+      "hrv_rmssd_ms": 48.7,
+      "max_hr_bpm": 147,
+      "nap_count": 0,
+      "nap_time_asleep_s": 0,
+      "readiness_score": 57,
+      "resting_hr_bpm": 55,
+      "skin_temp_c": 33.6,
+      "sleep_awake_s": 3244,
+      "sleep_deep_s": 5539,
+      "sleep_efficiency_pct": 90.7,
+      "sleep_light_s": 18408,
+      "sleep_rem_s": 7729,
+      "sleep_respiratory_rate_bpm": 15.4,
+      "sleep_time_asleep_s": 31676,
+      "sleep_time_in_bed_s": 34920,
+      "spo2_pct": 96.5,
+      "strain": 12.3,
+      "total_energy_kj": 10234.9,
+      "workouts": [
+        {
+          "duration_s": 2280,
+          "energy_kj": 1213.0,
+          "sport": "running"
+        },
+        {
+          "duration_s": 2460,
+          "energy_kj": 1378.8,
+          "sport": "walking"
+        }
+      ]
+    }
+  },
+  "2026-01-12": {
+    "whoop": {
+      "average_hr_bpm": 73,
+      "hrv_rmssd_ms": 44.7,
+      "max_hr_bpm": 166,
+      "nap_count": 0,
+      "nap_time_asleep_s": 0,
+      "readiness_score": 29,
+      "resting_hr_bpm": 57,
+      "skin_temp_c": 33.5,
+      "sleep_awake_s": 1708,
+      "sleep_deep_s": 3976,
+      "sleep_efficiency_pct": 93.6,
+      "sleep_light_s": 15204,
+      "sleep_rem_s": 5933,
+      "sleep_respiratory_rate_bpm": 15.6,
+      "sleep_time_asleep_s": 25113,
+      "sleep_time_in_bed_s": 26820,
+      "spo2_pct": 97.2,
+      "strain": 13.6,
+      "total_energy_kj": 9665.1,
+      "workouts": [
+        {
+          "duration_s": 2760,
+          "energy_kj": 2045.2,
+          "sport": "running"
+        }
+      ]
+    }
+  },
+  "2026-01-13": {
+    "whoop": {
+      "average_hr_bpm": 70,
+      "hrv_rmssd_ms": 49.0,
+      "max_hr_bpm": 175,
+      "nap_count": 0,
+      "nap_time_asleep_s": 0,
+      "readiness_score": 52,
+      "resting_hr_bpm": 55,
+      "skin_temp_c": 33.8,
+      "sleep_awake_s": 4131,
+      "sleep_deep_s": 5794,
+      "sleep_efficiency_pct": 86.3,
+      "sleep_light_s": 13800,
+      "sleep_rem_s": 6455,
+      "sleep_respiratory_rate_bpm": 15.1,
+      "sleep_time_asleep_s": 26049,
+      "sleep_time_in_bed_s": 30180,
+      "spo2_pct": 97.0,
+      "strain": 12.5,
+      "total_energy_kj": 9652.7,
+      "workouts": [
+        {
+          "duration_s": 2640,
+          "energy_kj": 2106.7,
+          "sport": "hiit"
+        }
+      ]
+    }
+  },
+  "2026-01-14": {
+    "whoop": {
+      "average_hr_bpm": 66,
+      "hrv_rmssd_ms": 48.8,
+      "max_hr_bpm": 125,
+      "nap_count": 0,
+      "nap_time_asleep_s": 0,
+      "readiness_score": 45,
+      "resting_hr_bpm": 55,
+      "skin_temp_c": 33.8,
+      "sleep_awake_s": 2004,
+      "sleep_deep_s": 6103,
+      "sleep_efficiency_pct": 92.2,
+      "sleep_light_s": 11523,
+      "sleep_rem_s": 5990,
+      "sleep_respiratory_rate_bpm": 15.4,
+      "sleep_time_asleep_s": 23616,
+      "sleep_time_in_bed_s": 25620,
+      "spo2_pct": 97.2,
+      "strain": 6.6,
+      "total_energy_kj": 7206.1
+    }
+  },
+  "2026-01-15": {
+    "whoop": {
+      "average_hr_bpm": 72,
+      "hrv_rmssd_ms": 58.1,
+      "max_hr_bpm": 175,
+      "nap_count": 0,
+      "nap_time_asleep_s": 0,
+      "readiness_score": 66,
+      "resting_hr_bpm": 55,
+      "skin_temp_c": 33.8,
+      "sleep_awake_s": 2685,
+      "sleep_deep_s": 5309,
+      "sleep_efficiency_pct": 90.9,
+      "sleep_light_s": 15395,
+      "sleep_rem_s": 6250,
+      "sleep_respiratory_rate_bpm": 15.2,
+      "sleep_time_asleep_s": 26954,
+      "sleep_time_in_bed_s": 29640,
+      "spo2_pct": 97.1,
+      "strain": 16.9,
+      "total_energy_kj": 10206.7,
+      "workouts": [
+        {
+          "duration_s": 2580,
+          "energy_kj": 2377.5,
+          "sport": "running"
+        }
+      ]
+    }
+  },
+  "2026-01-16": {
+    "whoop": {
+      "average_hr_bpm": 64,
+      "hrv_rmssd_ms": 47.8,
+      "max_hr_bpm": 113,
+      "nap_count": 0,
+      "nap_time_asleep_s": 0,
+      "readiness_score": 40,
+      "resting_hr_bpm": 56,
+      "skin_temp_c": 33.9,
+      "sleep_awake_s": 2158,
+      "sleep_deep_s": 6214,
+      "sleep_efficiency_pct": 92.1,
+      "sleep_light_s": 14056,
+      "sleep_rem_s": 4873,
+      "sleep_respiratory_rate_bpm": 15.1,
+      "sleep_time_asleep_s": 25143,
+      "sleep_time_in_bed_s": 27300,
+      "spo2_pct": 97.3,
+      "strain": 10.2,
+      "total_energy_kj": 8282.2
+    }
+  },
+  "2026-01-17": {
+    "whoop": {
+      "average_hr_bpm": 72,
+      "hrv_rmssd_ms": 51.9,
+      "max_hr_bpm": 166,
+      "nap_count": 1,
+      "nap_time_asleep_s": 1825,
+      "readiness_score": 61,
+      "resting_hr_bpm": 54,
+      "skin_temp_c": 34.0,
+      "sleep_awake_s": 1969,
+      "sleep_deep_s": 6990,
+      "sleep_efficiency_pct": 93.4,
+      "sleep_light_s": 15844,
+      "sleep_rem_s": 5137,
+      "sleep_respiratory_rate_bpm": 15.2,
+      "sleep_time_asleep_s": 27971,
+      "sleep_time_in_bed_s": 29940,
+      "spo2_pct": 97.2,
+      "strain": 16.7,
+      "total_energy_kj": 13723.0,
+      "workouts": [
+        {
+          "duration_s": 7620,
+          "energy_kj": 5718.8,
+          "sport": "cycling"
+        }
+      ]
+    }
+  },
+  "2026-01-18": {
+    "whoop": {
+      "average_hr_bpm": 71,
+      "hrv_rmssd_ms": 51.3,
+      "max_hr_bpm": 134,
+      "nap_count": 0,
+      "nap_time_asleep_s": 0,
+      "readiness_score": 58,
+      "resting_hr_bpm": 58,
+      "skin_temp_c": 33.7,
+      "sleep_awake_s": 1871,
+      "sleep_deep_s": 6453,
+      "sleep_efficiency_pct": 93.8,
+      "sleep_light_s": 15308,
+      "sleep_rem_s": 6728,
+      "sleep_respiratory_rate_bpm": 15.3,
+      "sleep_time_asleep_s": 28489,
+      "sleep_time_in_bed_s": 30360,
+      "spo2_pct": 96.8,
+      "strain": 12.7,
+      "total_energy_kj": 10316.8,
+      "workouts": [
+        {
+          "duration_s": 2100,
+          "energy_kj": 1157.1,
+          "sport": "running"
+        },
+        {
+          "duration_s": 2880,
+          "energy_kj": 1504.8,
+          "sport": "walking"
+        }
+      ]
+    }
+  },
+  "2026-01-19": {
+    "whoop": {
+      "average_hr_bpm": 66,
+      "hrv_rmssd_ms": 47.7,
+      "max_hr_bpm": 114,
+      "nap_count": 0,
+      "nap_time_asleep_s": 0,
+      "readiness_score": 46,
+      "resting_hr_bpm": 58,
+      "skin_temp_c": 33.8,
+      "sleep_awake_s": 2913,
+      "sleep_deep_s": 4087,
+      "sleep_efficiency_pct": 89.9,
+      "sleep_light_s": 16013,
+      "sleep_rem_s": 5907,
+      "sleep_respiratory_rate_bpm": 14.9,
+      "sleep_time_asleep_s": 26007,
+      "sleep_time_in_bed_s": 28920,
+      "spo2_pct": 96.9,
+      "strain": 7.2,
+      "total_energy_kj": 7826.7
+    }
+  },
+  "2026-01-20": {
+    "whoop": {
+      "average_hr_bpm": 67,
+      "hrv_rmssd_ms": 57.4,
+      "max_hr_bpm": 157,
+      "nap_count": 0,
+      "nap_time_asleep_s": 0,
+      "readiness_score": 68,
+      "resting_hr_bpm": 53,
+      "skin_temp_c": 33.7,
+      "sleep_awake_s": 1245,
+      "sleep_deep_s": 5586,
+      "sleep_efficiency_pct": 95.2,
+      "sleep_light_s": 12222,
+      "sleep_rem_s": 6748,
+      "sleep_respiratory_rate_bpm": 15.3,
+      "sleep_time_asleep_s": 24556,
+      "sleep_time_in_bed_s": 25800,
+      "spo2_pct": 96.3,
+      "strain": 11.7,
+      "total_energy_kj": 10135.7,
+      "workouts": [
+        {
+          "duration_s": 3420,
+          "energy_kj": 2534.2,
+          "sport": "hiit"
+        }
+      ]
+    }
+  },
+  "2026-01-21": {
+    "whoop": {
+      "average_hr_bpm": 67,
+      "hrv_rmssd_ms": 43.4,
+      "max_hr_bpm": 125,
+      "nap_count": 0,
+      "nap_time_asleep_s": 0,
+      "readiness_score": 31,
+      "resting_hr_bpm": 60,
+      "skin_temp_c": 34.4,
+      "sleep_awake_s": 3928,
+      "sleep_deep_s": 5751,
+      "sleep_efficiency_pct": 87.2,
+      "sleep_light_s": 14985,
+      "sleep_rem_s": 5996,
+      "sleep_respiratory_rate_bpm": 16.4,
+      "sleep_time_asleep_s": 26732,
+      "sleep_time_in_bed_s": 30660,
+      "spo2_pct": 96.3,
+      "strain": 7.0,
+      "total_energy_kj": 7593.4
+    }
+  },
+  "2026-01-22": {
+    "whoop": {
+      "average_hr_bpm": 66,
+      "hrv_rmssd_ms": 46.9,
+      "max_hr_bpm": 132,
+      "nap_count": 0,
+      "nap_time_asleep_s": 0,
+      "readiness_score": 43,
+      "resting_hr_bpm": 63,
+      "skin_temp_c": 34.5,
+      "sleep_awake_s": 4887,
+      "sleep_deep_s": 6158,
+      "sleep_efficiency_pct": 85.4,
+      "sleep_light_s": 15564,
+      "sleep_rem_s": 6871,
+      "sleep_respiratory_rate_bpm": 16.3,
+      "sleep_time_asleep_s": 28593,
+      "sleep_time_in_bed_s": 33480,
+      "spo2_pct": 96.0,
+      "strain": 8.1,
+      "total_energy_kj": 7381.9
+    }
+  },
+  "2026-01-23": {
+    "whoop": {
+      "average_hr_bpm": 66,
+      "hrv_rmssd_ms": 48.2,
+      "max_hr_bpm": 119,
+      "nap_count": 0,
+      "nap_time_asleep_s": 0,
+      "readiness_score": 42,
+      "resting_hr_bpm": 59,
+      "skin_temp_c": 34.5,
+      "sleep_awake_s": 4950,
+      "sleep_deep_s": 4659,
+      "sleep_efficiency_pct": 83.6,
+      "sleep_light_s": 14606,
+      "sleep_rem_s": 5965,
+      "sleep_respiratory_rate_bpm": 17.0,
+      "sleep_time_asleep_s": 25230,
+      "sleep_time_in_bed_s": 30180,
+      "spo2_pct": 96.4,
+      "strain": 7.4,
+      "total_energy_kj": 7576.5
+    }
+  },
+  "2026-01-24": {
+    "whoop": {
+      "average_hr_bpm": 74,
+      "hrv_rmssd_ms": 66.0,
+      "max_hr_bpm": 158,
+      "nap_count": 0,
+      "nap_time_asleep_s": 0,
+      "readiness_score": 94,
+      "resting_hr_bpm": 51,
+      "skin_temp_c": 33.8,
+      "sleep_awake_s": 2715,
+      "sleep_deep_s": 6135,
+      "sleep_efficiency_pct": 91.1,
+      "sleep_light_s": 15390,
+      "sleep_rem_s": 6180,
+      "sleep_respiratory_rate_bpm": 15.4,
+      "sleep_time_asleep_s": 27705,
+      "sleep_time_in_bed_s": 30420,
+      "spo2_pct": 97.4,
+      "strain": 17.1,
+      "total_energy_kj": 11871.3,
+      "workouts": [
+        {
+          "duration_s": 6780,
+          "energy_kj": 5088.4,
+          "sport": "cycling"
+        }
+      ]
+    }
+  },
+  "2026-01-25": {
+    "whoop": {
+      "average_hr_bpm": 71,
+      "hrv_rmssd_ms": 48.7,
+      "max_hr_bpm": 148,
+      "nap_count": 0,
+      "nap_time_asleep_s": 0,
+      "readiness_score": 48,
+      "resting_hr_bpm": 56,
+      "skin_temp_c": 33.7,
+      "sleep_awake_s": 3203,
+      "sleep_deep_s": 6175,
+      "sleep_efficiency_pct": 89.0,
+      "sleep_light_s": 12393,
+      "sleep_rem_s": 7269,
+      "sleep_respiratory_rate_bpm": 15.4,
+      "sleep_time_asleep_s": 25837,
+      "sleep_time_in_bed_s": 29040,
+      "spo2_pct": 97.7,
+      "strain": 13.7,
+      "total_energy_kj": 10847.0,
+      "workouts": [
+        {
+          "duration_s": 2340,
+          "energy_kj": 1267.1,
+          "sport": "running"
+        },
+        {
+          "duration_s": 2580,
+          "energy_kj": 1470.6,
+          "sport": "walking"
+        }
+      ]
+    }
+  },
+  "2026-01-26": {
+    "whoop": {
+      "average_hr_bpm": 64,
+      "hrv_rmssd_ms": 50.8,
+      "max_hr_bpm": 122,
+      "nap_count": 1,
+      "nap_time_asleep_s": 2125,
+      "readiness_score": 52,
+      "resting_hr_bpm": 54,
+      "skin_temp_c": 34.0,
+      "sleep_awake_s": 2197,
+      "sleep_deep_s": 5619,
+      "sleep_efficiency_pct": 92.2,
+      "sleep_light_s": 15188,
+      "sleep_rem_s": 5316,
+      "sleep_respiratory_rate_bpm": 15.3,
+      "sleep_time_asleep_s": 26123,
+      "sleep_time_in_bed_s": 28320,
+      "spo2_pct": 97.9,
+      "strain": 6.8,
+      "total_energy_kj": 7711.4
+    }
+  },
+  "2026-01-27": {
+    "whoop": {
+      "average_hr_bpm": 68,
+      "hrv_rmssd_ms": 61.4,
+      "max_hr_bpm": 168,
+      "nap_count": 1,
+      "nap_time_asleep_s": 2545,
+      "readiness_score": 76,
+      "resting_hr_bpm": 53,
+      "skin_temp_c": 33.4,
+      "sleep_awake_s": 2241,
+      "sleep_deep_s": 3911,
+      "sleep_efficiency_pct": 91.9,
+      "sleep_light_s": 15274,
+      "sleep_rem_s": 6174,
+      "sleep_respiratory_rate_bpm": 14.8,
+      "sleep_time_asleep_s": 25359,
+      "sleep_time_in_bed_s": 27600,
+      "spo2_pct": 96.7,
+      "strain": 14.8,
+      "total_energy_kj": 10159.2,
+      "workouts": [
+        {
+          "duration_s": 2820,
+          "energy_kj": 2250.4,
+          "sport": "hiit"
+        }
+      ]
+    }
+  },
+  "2026-01-28": {
+    "whoop": {
+      "average_hr_bpm": 64,
+      "hrv_rmssd_ms": 52.7,
+      "max_hr_bpm": 132,
+      "nap_count": 0,
+      "nap_time_asleep_s": 0,
+      "readiness_score": 54,
+      "resting_hr_bpm": 55,
+      "skin_temp_c": 34.1,
+      "sleep_awake_s": 2471,
+      "sleep_deep_s": 5223,
+      "sleep_efficiency_pct": 90.9,
+      "sleep_light_s": 13401,
+      "sleep_rem_s": 6145,
+      "sleep_respiratory_rate_bpm": 15.2,
+      "sleep_time_asleep_s": 24769,
+      "sleep_time_in_bed_s": 27240,
+      "spo2_pct": 96.4,
+      "strain": 7.8,
+      "total_energy_kj": 7576.3
+    }
+  },
+  "2026-01-29": {
+    "whoop": {
+      "average_hr_bpm": 74,
+      "hrv_rmssd_ms": 49.5,
+      "max_hr_bpm": 182,
+      "nap_count": 0,
+      "nap_time_asleep_s": 0,
+      "readiness_score": 49,
+      "resting_hr_bpm": 55,
+      "skin_temp_c": 33.7,
+      "sleep_awake_s": 2744,
+      "sleep_deep_s": 4914,
+      "sleep_efficiency_pct": 90.1,
+      "sleep_light_s": 13411,
+      "sleep_rem_s": 6651,
+      "sleep_respiratory_rate_bpm": 15.5,
+      "sleep_time_asleep_s": 24976,
+      "sleep_time_in_bed_s": 27720,
+      "spo2_pct": 96.7,
+      "strain": 17.0,
+      "total_energy_kj": 10110.5,
+      "workouts": [
+        {
+          "duration_s": 2640,
+          "energy_kj": 2407.7,
+          "sport": "running"
+        }
+      ]
+    }
+  },
+  "2026-01-30": {
+    "whoop": {
+      "average_hr_bpm": 67,
+      "max_hr_bpm": 150,
+      "nap_count": 0,
+      "nap_time_asleep_s": 0,
+      "sleep_awake_s": 1885,
+      "sleep_deep_s": 6460,
+      "sleep_efficiency_pct": 93.8,
+      "sleep_light_s": 15138,
+      "sleep_rem_s": 6997,
+      "sleep_respiratory_rate_bpm": 14.8,
+      "sleep_time_asleep_s": 28595,
+      "sleep_time_in_bed_s": 30480,
+      "strain": 8.7,
+      "total_energy_kj": 8411.9,
+      "workouts": [
+        {
+          "duration_s": 2280,
+          "energy_kj": 1277.9,
+          "sport": "yoga"
+        }
+      ]
+    }
+  },
+  "2026-01-31": {
+    "whoop": {
+      "average_hr_bpm": 65,
+      "hrv_rmssd_ms": 55.2,
+      "max_hr_bpm": 128,
+      "nap_count": 0,
+      "nap_time_asleep_s": 0,
+      "readiness_score": 72,
+      "resting_hr_bpm": 54,
+      "skin_temp_c": 33.9,
+      "sleep_awake_s": 2957,
+      "sleep_deep_s": 7481,
+      "sleep_efficiency_pct": 90.7,
+      "sleep_light_s": 15796,
+      "sleep_rem_s": 5686,
+      "sleep_respiratory_rate_bpm": 14.7,
+      "sleep_time_asleep_s": 28963,
+      "sleep_time_in_bed_s": 31920,
+      "spo2_pct": 96.6,
+      "strain": 5.5,
+      "total_energy_kj": 6940.6
+    }
+  },
+  "2026-02-01": {
+    "whoop": {
+      "hrv_rmssd_ms": 62.8,
+      "nap_count": 0,
+      "nap_time_asleep_s": 0,
+      "readiness_score": 83,
+      "resting_hr_bpm": 52,
+      "skin_temp_c": 33.6,
+      "sleep_awake_s": 2174,
+      "sleep_deep_s": 6160,
+      "sleep_efficiency_pct": 92.9,
+      "sleep_light_s": 15046,
+      "sleep_rem_s": 7220,
+      "sleep_respiratory_rate_bpm": 15.1,
+      "sleep_time_asleep_s": 28426,
+      "sleep_time_in_bed_s": 30600,
+      "spo2_pct": 97.1,
+      "workouts": [
+        {
+          "duration_s": 2340,
+          "energy_kj": 1422.7,
+          "sport": "running"
+        },
+        {
+          "duration_s": 2520,
+          "energy_kj": 1364.6,
+          "sport": "walking"
+        }
+      ]
+    }
+  }
+}
