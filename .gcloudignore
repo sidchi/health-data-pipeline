@@ -12,6 +12,9 @@ whoop_exporter/cli.py
 whoop_exporter/sample.py
 health_pipeline/
 sample_data/
+tools/
+infra/
+dist/
 .config*.json
 .whoop_token.json
 .gdrive_token.json
@@ -23,3 +26,9 @@ __pycache__/
 .venv/
 .pytest_cache/
 .ruff_cache/
+.coverage
+htmlcov/
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
