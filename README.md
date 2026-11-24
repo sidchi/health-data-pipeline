@@ -130,8 +130,24 @@ gcloud scheduler jobs create http whoop-export-daily --location $REGION \
 
 (`--set-secrets` assumes you also stored the client id/secret as secrets; plain
 `--set-env-vars` works too but keeps the secret in the function config.) `.gcloudignore`
-keeps tests, the CLI and local credentials out of the upload. Terraform for all of this is on
-the roadmap.
+keeps tests, the CLI and local credentials out of the upload.
+
+### Terraform (recommended)
+
+[`infra/terraform`](infra/terraform/README.md) manages all of the above as code — APIs,
+least-privilege service accounts, Secret Manager secrets (containers and IAM only; values stay out
+of state), the 2nd-gen function, the Scheduler job with OIDC auth — plus keyless deploys from
+GitHub Actions through Workload Identity Federation. The source zip is built by
+`python -m tools.package_function` from the same `.gcloudignore`, deterministically, so an
+unchanged tree plans as a no-op.
+
+```bash
+python -m tools.package_function --out dist
+terraform -chdir=infra/terraform init -backend-config="bucket=<state-bucket>"
+terraform -chdir=infra/terraform apply
+```
+
+See its README for the one-time bootstrap and the GitHub Actions setup.
 
 The handler returns HTTP 500 on any failure so Cloud Scheduler's retry policy kicks in; the
 response body never contains exception details (they go to Cloud Logging).
