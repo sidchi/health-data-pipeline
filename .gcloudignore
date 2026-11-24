@@ -9,6 +9,8 @@ requirements-*.txt
 pyproject.toml
 whoop.py
 whoop_exporter/cli.py
+whoop_exporter/sample.py
+sample_data/
 .config*.json
 .whoop_token.json
 .gdrive_token.json

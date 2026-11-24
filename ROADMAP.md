@@ -4,7 +4,7 @@ WHOOP data exporter (local script + Google Cloud Function) that pulls recovery, 
 
 - [x] 1. Hardening: move the hardcoded GDRIVE_FOLDER_ID (main.py, whoop.py) and other deployment-specific values into config/env, deduplicate shared logic between main.py and whoop.py into a package, add README (setup, WHOOP OAuth, Cloud Function deploy), ruff, pytest, GitHub Actions CI
 - [x] 2. Tests: unit tests for token refresh, pagination and daily aggregation using recorded/synthetic WHOOP API fixtures (responses mocked)
-- [ ] 3. Sample-data generator producing realistic synthetic WHOOP-shaped sleep, recovery and strain data
+- [x] 3. Sample-data generator producing realistic synthetic WHOOP-shaped sleep, recovery and strain data
 - [ ] 4. Unified schema + additional sources: normalize WHOOP, Apple Health export XML and Oura into one model, pluggable connectors with fixture tests
 - [ ] 5. Storage: DuckDB with incremental, idempotent loads alongside the Drive output
 - [ ] 6. Infra as code: Terraform for the Cloud Function, Cloud Scheduler and Secret Manager; deploy workflow
