@@ -164,8 +164,49 @@ def _parse_args(argv: list[str] | None) -> argparse.Namespace:
     parser.add_argument("--days", type=int, help="days of history to fetch (overrides DAYS_BACK)")
     parser.add_argument("--out", type=Path, help="output directory (overrides EXPORT_PATH)")
     parser.add_argument("--no-drive", action="store_true", help="skip the Google Drive upload")
+    parser.add_argument(
+        "--duckdb",
+        type=Path,
+        metavar="DB",
+        help="also load the export into this DuckDB store (see health_pipeline.store)",
+    )
+    parser.add_argument(
+        "--incremental",
+        action="store_true",
+        help="with --duckdb, fetch only the days since the store's latest WHOOP record "
+        "(plus a few days of overlap for re-scored records)",
+    )
     parser.add_argument("-v", "--verbose", action="store_true", help="debug logging")
-    return parser.parse_args(argv)
+    args = parser.parse_args(argv)
+    if args.incremental and not args.duckdb:
+        parser.error("--incremental requires --duckdb")
+    if args.incremental and args.days:
+        parser.error("--incremental and --days are mutually exclusive")
+    return args
+
+
+def _days_to_fetch(args: argparse.Namespace, settings: Settings) -> int:
+    if args.days:
+        return args.days
+    if not args.incremental:
+        return settings.days_back
+    from health_pipeline.store import HealthStore, incremental_days
+
+    with HealthStore(args.duckdb) as store:
+        watermark = store.watermark("whoop")
+    days = incremental_days(watermark, datetime.now(UTC).date(), fallback=settings.days_back)
+    logger.info("Incremental fetch: %d day(s) (store has WHOOP data up to %s)", days, watermark)
+    return days
+
+
+def _load_into_duckdb(db: Path, export_file: Path) -> None:
+    try:
+        from health_pipeline.store import HealthStore
+    except ImportError:  # pragma: no cover - depends on the environment
+        logger.error("DuckDB load skipped: install requirements-local.txt")
+        return
+    with HealthStore(db) as store:
+        print(f"DuckDB {db}: {store.load_file(export_file, 'whoop')}")
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -179,7 +220,7 @@ def main(argv: list[str] | None = None) -> int:
         print(f"[config] {exc}", file=sys.stderr)
         return 2
 
-    days = args.days or settings.days_back
+    days = _days_to_fetch(args, settings)
     out_dir = args.out or settings.export_path or Path.cwd()
     out_dir.mkdir(parents=True, exist_ok=True)
 
@@ -198,6 +239,9 @@ def main(argv: list[str] | None = None) -> int:
             upsert_json(service, settings.gdrive_folder_id, filename, content)
     elif not args.no_drive:
         logger.info("GDRIVE_FOLDER_ID not set; skipping Drive upload")
+
+    if args.duckdb:
+        _load_into_duckdb(args.duckdb, filepath)
 
     for day in sorted(data["summary"], reverse=True):
         print("  " + format_summary_line(day, data["summary"][day]))

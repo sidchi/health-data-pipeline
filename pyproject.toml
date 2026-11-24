@@ -17,7 +17,10 @@ ignore = [
 ]
 
 [tool.ruff.lint.per-file-ignores]
-"tests/**" = ["S105", "S106", "ARG"]
+"tests/**" = ["S105", "S106", "S608", "ARG"]
+# Table and column names interpolated into SQL come only from the module's own
+# TABLES constant; every value is a bound parameter.
+"health_pipeline/store.py" = ["S608"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

@@ -1,5 +1,6 @@
 import json
 import stat
+from typing import ClassVar
 
 import pytest
 
@@ -70,3 +71,73 @@ def test_main_writes_export_and_skips_drive(monkeypatch, tmp_path):
     assert cli.main(["--days", "3", "--out", str(tmp_path), "--no-drive"]) == 0
     (export,) = tmp_path.glob("WhoopExport-*.json")
     assert json.loads(export.read_text())["period"] == {"days": 3}
+
+
+class SampleClient:
+    """Returns the committed synthetic sample export and records the window asked for."""
+
+    requested_days: ClassVar[list[int]] = []
+
+    def __init__(self, token):
+        pass
+
+    def fetch_export(self, days):
+        from whoop_exporter.sample import SAMPLE_EXPORT_PATH
+
+        SampleClient.requested_days.append(days)
+        return json.loads(SAMPLE_EXPORT_PATH.read_text())
+
+
+@pytest.fixture
+def offline_cli(monkeypatch, tmp_path):
+    monkeypatch.setenv("WHOOP_EXPORTER_CONFIG", str(tmp_path / "none.json"))
+    monkeypatch.setenv("WHOOP_CLIENT_ID", "cid")
+    monkeypatch.setenv("WHOOP_CLIENT_SECRET", "cs")
+    monkeypatch.setenv("DAYS_BACK", "30")
+    monkeypatch.setattr(cli, "get_access_token", lambda _s: "tok")
+    monkeypatch.setattr(cli, "WhoopClient", SampleClient)
+    monkeypatch.setattr(cli, "_drive_service", pytest.fail)
+    SampleClient.requested_days = []
+    return tmp_path
+
+
+def test_main_loads_export_into_duckdb(offline_cli, capsys):
+    from health_pipeline.store import HealthStore
+
+    db = offline_cli / "h.duckdb"
+    args = ["--out", str(offline_cli), "--no-drive", "--duckdb", str(db)]
+    assert cli.main(args) == 0
+    assert "new" in capsys.readouterr().out
+    assert cli.main(args) == 0  # same export bytes again
+    assert "skipped" in capsys.readouterr().out
+    with HealthStore(db) as store:
+        assert store.watermark("whoop") is not None
+        assert len(store.runs()) == 1
+
+
+def test_incremental_fetches_from_the_watermark(offline_cli):
+    from datetime import UTC, datetime
+
+    from health_pipeline.store import HealthStore, incremental_days
+
+    db = offline_cli / "h.duckdb"
+    args = ["--out", str(offline_cli), "--no-drive", "--duckdb", str(db), "--incremental"]
+    assert cli.main(args) == 0  # empty store: falls back to DAYS_BACK
+    with HealthStore(db) as store:
+        watermark = store.watermark("whoop")
+    assert cli.main(args) == 0
+    today = datetime.now(UTC).date()
+    assert SampleClient.requested_days == [30, incremental_days(watermark, today, fallback=30)]
+
+
+@pytest.mark.parametrize(
+    ("argv", "message"),
+    [
+        (["--incremental"], "--incremental requires --duckdb"),
+        (["--duckdb", "h.duckdb", "--incremental", "--days", "3"], "mutually exclusive"),
+    ],
+)
+def test_incremental_flag_validation(argv, message, capsys):
+    with pytest.raises(SystemExit):
+        cli.main(argv)
+    assert message in capsys.readouterr().err

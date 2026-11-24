@@ -8,6 +8,8 @@ credentials.json
 # Exports contain personal health data — never commit
 WhoopExport-*.json
 exports/
+*.duckdb
+*.duckdb.wal
 
 # Python
 __pycache__/
