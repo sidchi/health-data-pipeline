@@ -11,7 +11,7 @@ It runs two ways from the same code:
 | `whoop.py` | your laptop | browser OAuth on first run, tokens cached locally | local JSON file + optional Drive upload |
 | `main.py` (`trigger_upload`) | Google Cloud Function, triggered by Cloud Scheduler | refresh token in Secret Manager, service account for Drive | Drive (Shared Drive) |
 
-See [ROADMAP.md](ROADMAP.md) for where this is heading (multi-source schema, DuckDB, dashboards).
+See [ROADMAP.md](ROADMAP.md) for where this is heading (multi-source schema, DuckDB, dashboards, weekly insights).
 
 > **Privacy:** this repository contains code and synthetic test fixtures only. Exports,
 > tokens and credentials are git-ignored and must never be committed.
@@ -303,6 +303,60 @@ Design choices worth knowing:
 
 The data layer (`src/data.ts`) is plain TypeScript with no React in it, and is where most of the
 tests live. `npm run lint`, `npm run typecheck`, `npm test` and `npm run build` run in CI.
+
+## Weekly insights
+
+`python -m health_pipeline.insights` is the weekly summary job. For each source and ISO week
+(Monday to Sunday) it reports each metric's mean, range and change on the previous week, flags
+readings that are out of range against the wearer's own trailing baseline, marks possible illness
+days, and adds a short narrative. It writes `insights-<week>-<source>.json` and `.md`.
+
+```bash
+# From exports (the same flags as python -m health_pipeline):
+python -m health_pipeline.insights --whoop sample_data/whoop_sample_export.json -o insights/
+
+# From the DuckDB store, only the latest complete week (what a Monday cron job wants):
+python -m health_pipeline.insights --duckdb health.duckdb --latest-complete -o insights/
+```
+
+[`sample_data/insights/`](sample_data/insights/) shows the output for the synthetic sample's
+illness week (2026-W04). `insights/` at the repo root is git-ignored, because real reports are
+personal health data. With the default template narrative the output depends only on the input,
+so re-running the job rewrites identical files.
+
+How it decides what to flag:
+
+* **Robust, strictly trailing baseline.** Each day is compared with the **median** of the previous
+  28 days that have a value, scaled by the **MAD** (× 1.4826, so it reads like a standard
+  deviation). A few sick or odd days in the history barely move a median/MAD baseline, but they
+  would widen a mean/SD baseline enough to hide the next spike. The day being scored is never
+  part of its own baseline, and flags start only after 7 days of history.
+* **Floors on spread.** Each metric has a minimum scale (1 bpm, 0.1 °C, 2 ms, ...), so a resting
+  HR that sat on exactly 55 for a week does not turn 57 into a huge z-score.
+* **Only adverse directions.** Low HRV, high resting HR, high skin temperature or respiratory
+  rate, low SpO2, short sleep. An unusually *good* reading is not an alert. Strain and steps are
+  summarised but never flagged, because they are choices, not symptoms.
+* **Illness signal = agreement.** One metric out of range (≥ 3 robust SDs by default) is often
+  noise. A day counts as a possible illness signal only when **two or more physiological markers**
+  are out of range together. On the synthetic sample this finds exactly the generator's
+  ground-truth illness days, with no false alarms, and a test pins that.
+* **Per source, never blended.** As with the dashboard, WHOOP and Oura get separate baselines and
+  separate weekly reports.
+
+**Narratives.** By default (`--narrative template`) the narrative is a set of fixed sentences,
+built offline. `--narrative llm` is opt-in. It sends **only the weekly aggregates** (no raw
+records, profile or ids) to the Anthropic Messages API using `ANTHROPIC_API_KEY`. The model is set
+by `--llm-model` or `INSIGHTS_LLM_MODEL`. The LLM path is guarded:
+
+* The model behind it is reached through a small `LLMClient` protocol (`complete(system,
+  prompt) -> str`), so adding another provider means writing one small class.
+* **Grounding check.** Every number in the reply must match a number in the facts it was given
+  (rounding allowed). A reply that invents a figure ("HRV fell 30%") is thrown away.
+* Errors, timeouts, empty replies and replies that fail the grounding check all fall back to the
+  template narrative, so the job never fails, or publishes an invented number, because of the LLM.
+
+Tests use a fake client and an injected HTTP `post`, so they never touch the network. These
+reports summarise trends against your own baseline. They are not medical advice.
 
 ## Development
 
