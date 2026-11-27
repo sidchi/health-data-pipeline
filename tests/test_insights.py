@@ -530,3 +530,14 @@ def test_cli_argument_errors(argv: list[str]) -> None:
     with pytest.raises(SystemExit) as exc:
         insights_main(argv)
     assert exc.value.code == 2
+
+
+def test_committed_sample_report_is_up_to_date(tmp_path: Path) -> None:
+    committed = Path(__file__).parents[1] / "sample_data" / "insights"
+    argv = ["--whoop", str(SAMPLE_EXPORT_PATH), "--week", "2026-W04", "-o", str(tmp_path)]
+    assert insights_main(argv) == 0
+    for path in tmp_path.iterdir():
+        assert (committed / path.name).read_text("utf-8") == path.read_text("utf-8"), (
+            "regenerate with: python -m health_pipeline.insights "
+            "--whoop sample_data/whoop_sample_export.json --week 2026-W04 -o sample_data/insights"
+        )
