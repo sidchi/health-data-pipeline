@@ -9,6 +9,6 @@ WHOOP data exporter (local script + Google Cloud Function) that pulls recovery, 
 - [x] 5. Storage: DuckDB with incremental, idempotent loads alongside the Drive output
 - [x] 6. Infra as code: Terraform for the Cloud Function, Cloud Scheduler and Secret Manager; deploy workflow
 - [x] 7. Dashboard: React + Recharts views for recovery, sleep and strain trends, reading sample data
-- [ ] 8. Insights: weekly summary job (rolling averages, anomaly flags), optional LLM narrative
+- [x] 8. Insights: weekly summary job (rolling averages, anomaly flags), optional LLM narrative
 - [ ] 9. Docker Compose for one-command local run with sample data
 - [ ] 10. Polish: screenshots, architecture diagram, demo deploy on sample data, v1.0 release

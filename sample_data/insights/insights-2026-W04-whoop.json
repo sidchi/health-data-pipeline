@@ -1,0 +1,367 @@
+{
+  "source": "whoop",
+  "week": "2026-W04",
+  "start": "2026-01-19",
+  "end": "2026-01-25",
+  "days_with_data": 7,
+  "complete": true,
+  "metrics": [
+    {
+      "metric": "readiness_score",
+      "label": "Recovery / readiness",
+      "unit": "",
+      "days": 7,
+      "mean": 53.0,
+      "min": 31.0,
+      "max": 94.0,
+      "previous_mean": 50.0,
+      "delta": 3.0,
+      "trend": "steady"
+    },
+    {
+      "metric": "hrv_rmssd_ms",
+      "label": "HRV (RMSSD)",
+      "unit": "ms",
+      "days": 7,
+      "mean": 51.2,
+      "min": 43.4,
+      "max": 66.0,
+      "previous_mean": 50.2,
+      "delta": 1.0,
+      "trend": "steady"
+    },
+    {
+      "metric": "resting_hr_bpm",
+      "label": "Resting heart rate",
+      "unit": "bpm",
+      "days": 7,
+      "mean": 57.1,
+      "min": 51.0,
+      "max": 63.0,
+      "previous_mean": 55.7,
+      "delta": 1.4,
+      "trend": "worse"
+    },
+    {
+      "metric": "skin_temp_c",
+      "label": "Skin temperature",
+      "unit": "°C",
+      "days": 7,
+      "mean": 34.1,
+      "min": 33.7,
+      "max": 34.5,
+      "previous_mean": 33.8,
+      "delta": 0.3,
+      "trend": "worse"
+    },
+    {
+      "metric": "sleep_respiratory_rate_bpm",
+      "label": "Respiratory rate",
+      "unit": "br/min",
+      "days": 7,
+      "mean": 15.8,
+      "min": 14.9,
+      "max": 17.0,
+      "previous_mean": 15.3,
+      "delta": 0.5,
+      "trend": "worse"
+    },
+    {
+      "metric": "spo2_pct",
+      "label": "SpO2",
+      "unit": "%",
+      "days": 7,
+      "mean": 96.7,
+      "min": 96.0,
+      "max": 97.7,
+      "previous_mean": 97.1,
+      "delta": -0.4,
+      "trend": "worse"
+    },
+    {
+      "metric": "sleep_time_asleep_s",
+      "label": "Time asleep",
+      "unit": "h",
+      "days": 7,
+      "mean": 7.33,
+      "min": 6.82,
+      "max": 7.94,
+      "previous_mean": 7.28,
+      "delta": 0.05,
+      "trend": "steady"
+    },
+    {
+      "metric": "sleep_efficiency_pct",
+      "label": "Sleep efficiency",
+      "unit": "%",
+      "days": 7,
+      "mean": 89.0,
+      "min": 84.0,
+      "max": 95.0,
+      "previous_mean": 92.0,
+      "delta": -3.0,
+      "trend": "worse"
+    },
+    {
+      "metric": "strain",
+      "label": "Day strain",
+      "unit": "",
+      "days": 7,
+      "mean": 10.3,
+      "min": 7.0,
+      "max": 17.1,
+      "previous_mean": 12.7,
+      "delta": -2.4,
+      "trend": "down"
+    }
+  ],
+  "workouts": {
+    "count": 4,
+    "duration_h": 4.2,
+    "by_sport": {
+      "cycling": 1,
+      "hiit": 1,
+      "running": 1,
+      "walking": 1
+    }
+  },
+  "naps": 0,
+  "anomalies": [
+    {
+      "day": "2026-01-21",
+      "source": "whoop",
+      "metric": "resting_hr_bpm",
+      "label": "Resting heart rate",
+      "unit": "bpm",
+      "value": 60.0,
+      "baseline": 55.0,
+      "z": 3.4,
+      "direction": "high"
+    },
+    {
+      "day": "2026-01-21",
+      "source": "whoop",
+      "metric": "skin_temp_c",
+      "label": "Skin temperature",
+      "unit": "°C",
+      "value": 34.4,
+      "baseline": 33.8,
+      "z": 6.5,
+      "direction": "high"
+    },
+    {
+      "day": "2026-01-21",
+      "source": "whoop",
+      "metric": "sleep_respiratory_rate_bpm",
+      "label": "Respiratory rate",
+      "unit": "br/min",
+      "value": 16.4,
+      "baseline": 15.2,
+      "z": 4.0,
+      "direction": "high"
+    },
+    {
+      "day": "2026-01-22",
+      "source": "whoop",
+      "metric": "resting_hr_bpm",
+      "label": "Resting heart rate",
+      "unit": "bpm",
+      "value": 63.0,
+      "baseline": 55.0,
+      "z": 5.4,
+      "direction": "high"
+    },
+    {
+      "day": "2026-01-22",
+      "source": "whoop",
+      "metric": "skin_temp_c",
+      "label": "Skin temperature",
+      "unit": "°C",
+      "value": 34.5,
+      "baseline": 33.8,
+      "z": 4.7,
+      "direction": "high"
+    },
+    {
+      "day": "2026-01-22",
+      "source": "whoop",
+      "metric": "sleep_respiratory_rate_bpm",
+      "label": "Respiratory rate",
+      "unit": "br/min",
+      "value": 16.3,
+      "baseline": 15.2,
+      "z": 3.7,
+      "direction": "high"
+    },
+    {
+      "day": "2026-01-22",
+      "source": "whoop",
+      "metric": "spo2_pct",
+      "label": "SpO2",
+      "unit": "%",
+      "value": 96.0,
+      "baseline": 97.0,
+      "z": -3.3,
+      "direction": "low"
+    },
+    {
+      "day": "2026-01-23",
+      "source": "whoop",
+      "metric": "skin_temp_c",
+      "label": "Skin temperature",
+      "unit": "°C",
+      "value": 34.5,
+      "baseline": 33.8,
+      "z": 4.7,
+      "direction": "high"
+    },
+    {
+      "day": "2026-01-23",
+      "source": "whoop",
+      "metric": "sleep_respiratory_rate_bpm",
+      "label": "Respiratory rate",
+      "unit": "br/min",
+      "value": 17.0,
+      "baseline": 15.2,
+      "z": 5.9,
+      "direction": "high"
+    },
+    {
+      "day": "2026-01-23",
+      "source": "whoop",
+      "metric": "sleep_efficiency_pct",
+      "label": "Sleep efficiency",
+      "unit": "%",
+      "value": 84.0,
+      "baseline": 91.0,
+      "z": -3.2,
+      "direction": "low"
+    }
+  ],
+  "illness_signal_days": [
+    "2026-01-21",
+    "2026-01-22",
+    "2026-01-23"
+  ],
+  "narrative": "2026-W04 (whoop): 7 of 7 days recorded. Recovery / readiness averaged 53, about the same as the week before. HRV (RMSSD) averaged 51.2 ms, about the same as the week before. Resting heart rate averaged 57.1 bpm, up 1.4 bpm on the week before (worse). Time asleep averaged 7.33 h, about the same as the week before. Day strain averaged 10.3, down 2.4 on the week before. Possible illness signal on Wed Jan 21, Thu Jan 22 and Fri Jan 23: Respiratory rate, Resting heart rate, Skin temperature, SpO2 moved well outside the usual range together. 4 workouts, 4.2 h in total.",
+  "days": [
+    {
+      "day": "2026-01-19",
+      "rolling": {
+        "hrv_rmssd_ms": 50.7,
+        "readiness_score": 53.0,
+        "resting_hr_bpm": 55.9,
+        "skin_temp_c": 33.8,
+        "sleep_efficiency_pct": 91.0,
+        "sleep_respiratory_rate_bpm": 15.2,
+        "sleep_time_asleep_s": 7.31,
+        "spo2_pct": 97.1,
+        "strain": 11.8
+      },
+      "flags": []
+    },
+    {
+      "day": "2026-01-20",
+      "rolling": {
+        "hrv_rmssd_ms": 51.9,
+        "readiness_score": 55.0,
+        "resting_hr_bpm": 55.6,
+        "skin_temp_c": 33.8,
+        "sleep_efficiency_pct": 92.0,
+        "sleep_respiratory_rate_bpm": 15.2,
+        "sleep_time_asleep_s": 7.25,
+        "spo2_pct": 97.0,
+        "strain": 11.7
+      },
+      "flags": []
+    },
+    {
+      "day": "2026-01-21",
+      "rolling": {
+        "hrv_rmssd_ms": 51.1,
+        "readiness_score": 53.0,
+        "resting_hr_bpm": 56.3,
+        "skin_temp_c": 33.9,
+        "sleep_efficiency_pct": 92.0,
+        "sleep_respiratory_rate_bpm": 15.3,
+        "sleep_time_asleep_s": 7.38,
+        "spo2_pct": 96.8,
+        "strain": 11.8
+      },
+      "flags": [
+        "resting_hr_bpm",
+        "skin_temp_c",
+        "sleep_respiratory_rate_bpm"
+      ]
+    },
+    {
+      "day": "2026-01-22",
+      "rolling": {
+        "hrv_rmssd_ms": 49.5,
+        "readiness_score": 50.0,
+        "resting_hr_bpm": 57.4,
+        "skin_temp_c": 34.0,
+        "sleep_efficiency_pct": 91.0,
+        "sleep_respiratory_rate_bpm": 15.5,
+        "sleep_time_asleep_s": 7.44,
+        "spo2_pct": 96.7,
+        "strain": 10.5
+      },
+      "flags": [
+        "resting_hr_bpm",
+        "skin_temp_c",
+        "sleep_respiratory_rate_bpm",
+        "spo2_pct"
+      ]
+    },
+    {
+      "day": "2026-01-23",
+      "rolling": {
+        "hrv_rmssd_ms": 49.5,
+        "readiness_score": 50.0,
+        "resting_hr_bpm": 57.9,
+        "skin_temp_c": 34.1,
+        "sleep_efficiency_pct": 90.0,
+        "sleep_respiratory_rate_bpm": 15.8,
+        "sleep_time_asleep_s": 7.44,
+        "spo2_pct": 96.6,
+        "strain": 10.1
+      },
+      "flags": [
+        "skin_temp_c",
+        "sleep_respiratory_rate_bpm",
+        "sleep_efficiency_pct"
+      ]
+    },
+    {
+      "day": "2026-01-24",
+      "rolling": {
+        "hrv_rmssd_ms": 51.6,
+        "readiness_score": 55.0,
+        "resting_hr_bpm": 57.4,
+        "skin_temp_c": 34.1,
+        "sleep_efficiency_pct": 89.0,
+        "sleep_respiratory_rate_bpm": 15.8,
+        "sleep_time_asleep_s": 7.43,
+        "spo2_pct": 96.6,
+        "strain": 10.2
+      },
+      "flags": []
+    },
+    {
+      "day": "2026-01-25",
+      "rolling": {
+        "hrv_rmssd_ms": 51.2,
+        "readiness_score": 53.0,
+        "resting_hr_bpm": 57.1,
+        "skin_temp_c": 34.1,
+        "sleep_efficiency_pct": 89.0,
+        "sleep_respiratory_rate_bpm": 15.8,
+        "sleep_time_asleep_s": 7.33,
+        "spo2_pct": 96.7,
+        "strain": 10.3
+      },
+      "flags": []
+    }
+  ]
+}

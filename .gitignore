@@ -8,6 +8,7 @@ credentials.json
 # Exports contain personal health data — never commit
 WhoopExport-*.json
 exports/
+/insights/
 *.duckdb
 *.duckdb.wal
 
